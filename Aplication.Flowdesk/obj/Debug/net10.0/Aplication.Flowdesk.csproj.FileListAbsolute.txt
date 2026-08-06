@@ -1,0 +1,11 @@
+C:\Users\Vukasin\source\repos\FlowDeskAPI\Aplication.Flowdesk\bin\Debug\net10.0\Aplication.Flowdesk.deps.json
+C:\Users\Vukasin\source\repos\FlowDeskAPI\Aplication.Flowdesk\bin\Debug\net10.0\Aplication.Flowdesk.dll
+C:\Users\Vukasin\source\repos\FlowDeskAPI\Aplication.Flowdesk\bin\Debug\net10.0\Aplication.Flowdesk.pdb
+C:\Users\Vukasin\source\repos\FlowDeskAPI\Aplication.Flowdesk\obj\Debug\net10.0\Aplication.Flowdesk.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Vukasin\source\repos\FlowDeskAPI\Aplication.Flowdesk\obj\Debug\net10.0\Aplication.Flowdesk.AssemblyInfoInputs.cache
+C:\Users\Vukasin\source\repos\FlowDeskAPI\Aplication.Flowdesk\obj\Debug\net10.0\Aplication.Flowdesk.AssemblyInfo.cs
+C:\Users\Vukasin\source\repos\FlowDeskAPI\Aplication.Flowdesk\obj\Debug\net10.0\Aplication.Flowdesk.csproj.CoreCompileInputs.cache
+C:\Users\Vukasin\source\repos\FlowDeskAPI\Aplication.Flowdesk\obj\Debug\net10.0\Aplication.Flowdesk.dll
+C:\Users\Vukasin\source\repos\FlowDeskAPI\Aplication.Flowdesk\obj\Debug\net10.0\refint\Aplication.Flowdesk.dll
+C:\Users\Vukasin\source\repos\FlowDeskAPI\Aplication.Flowdesk\obj\Debug\net10.0\Aplication.Flowdesk.pdb
+C:\Users\Vukasin\source\repos\FlowDeskAPI\Aplication.Flowdesk\obj\Debug\net10.0\ref\Aplication.Flowdesk.dll

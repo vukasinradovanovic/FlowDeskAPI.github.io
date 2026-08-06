@@ -1,0 +1,7 @@
+<Solution>
+  <Project Path="Aplication.Flowdesk/Application.Flowdesk.csproj" />
+  <Project Path="DataAccess/DataAccess.FlowDesk.csproj" />
+  <Project Path="Domain/Domain.csproj" />
+  <Project Path="FlowDeskAPI/FlowDeskAPI.csproj" />
+  <Project Path="Implementation/Implementation.csproj" Id="095d7f24-1501-4a97-a746-ed3c9e477b6a" />
+</Solution>

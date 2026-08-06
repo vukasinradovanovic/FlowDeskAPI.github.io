@@ -1,0 +1,17 @@
+C:\Users\Vukasin\source\repos\FlowDeskAPI\DataAccess\bin\Debug\net10.0\DataAccess.FlowDesk.deps.json
+C:\Users\Vukasin\source\repos\FlowDeskAPI\DataAccess\bin\Debug\net10.0\DataAccess.FlowDesk.runtimeconfig.json
+C:\Users\Vukasin\source\repos\FlowDeskAPI\DataAccess\bin\Debug\net10.0\DataAccess.FlowDesk.dll
+C:\Users\Vukasin\source\repos\FlowDeskAPI\DataAccess\bin\Debug\net10.0\DataAccess.FlowDesk.pdb
+C:\Users\Vukasin\source\repos\FlowDeskAPI\DataAccess\bin\Debug\net10.0\Domain.dll
+C:\Users\Vukasin\source\repos\FlowDeskAPI\DataAccess\bin\Debug\net10.0\Domain.pdb
+C:\Users\Vukasin\source\repos\FlowDeskAPI\DataAccess\obj\Debug\net10.0\DataAccess.FlowDesk.csproj.AssemblyReference.cache
+C:\Users\Vukasin\source\repos\FlowDeskAPI\DataAccess\obj\Debug\net10.0\DataAccess.FlowDesk.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Vukasin\source\repos\FlowDeskAPI\DataAccess\obj\Debug\net10.0\DataAccess.FlowDesk.AssemblyInfoInputs.cache
+C:\Users\Vukasin\source\repos\FlowDeskAPI\DataAccess\obj\Debug\net10.0\DataAccess.FlowDesk.AssemblyInfo.cs
+C:\Users\Vukasin\source\repos\FlowDeskAPI\DataAccess\obj\Debug\net10.0\DataAccess.FlowDesk.csproj.CoreCompileInputs.cache
+C:\Users\Vukasin\source\repos\FlowDeskAPI\DataAccess\obj\Debug\net10.0\DataAcce.8627CDF5.Up2Date
+C:\Users\Vukasin\source\repos\FlowDeskAPI\DataAccess\obj\Debug\net10.0\DataAccess.FlowDesk.dll
+C:\Users\Vukasin\source\repos\FlowDeskAPI\DataAccess\obj\Debug\net10.0\refint\DataAccess.FlowDesk.dll
+C:\Users\Vukasin\source\repos\FlowDeskAPI\DataAccess\obj\Debug\net10.0\DataAccess.FlowDesk.pdb
+C:\Users\Vukasin\source\repos\FlowDeskAPI\DataAccess\obj\Debug\net10.0\DataAccess.FlowDesk.genruntimeconfig.cache
+C:\Users\Vukasin\source\repos\FlowDeskAPI\DataAccess\obj\Debug\net10.0\ref\DataAccess.FlowDesk.dll

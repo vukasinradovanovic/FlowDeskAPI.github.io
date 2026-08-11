@@ -62,7 +62,7 @@ namespace FlowDeskAPI.Controllers.Auth
             var normalizedEmail = request.Email.Trim().ToLower();
             if (_context.Users.Any(u => u.Email.ToLower() == normalizedEmail))
             {
-                return Conflict(new { message = "User already exists." });
+                return Conflict(new { message = "User already existsin our system." });
             }
 
             var roleDefault = _roleSettings.DefaultRoleId;

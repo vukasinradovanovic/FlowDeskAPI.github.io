@@ -66,7 +66,7 @@ namespace DataAccess.FlowDesk.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("AuthTokens", (string)null);
+                    b.ToTable("AuthTokens");
                 });
 
             modelBuilder.Entity("Domain.Identity.Permission", b =>
@@ -84,7 +84,7 @@ namespace DataAccess.FlowDesk.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Permissions", (string)null);
+                    b.ToTable("Permissions");
                 });
 
             modelBuilder.Entity("Domain.Identity.Role", b =>
@@ -102,7 +102,50 @@ namespace DataAccess.FlowDesk.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Roles", (string)null);
+                    b.ToTable("Roles");
+                });
+
+            modelBuilder.Entity("Domain.Identity.UseCaseLog", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("CreatedAt")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValueSql("GETDATE()");
+
+                    b.Property<bool>("IsSuccessfull")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("UseCaseData")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("UseCaseName")
+                        .IsRequired()
+                        .HasMaxLength(30)
+                        .HasColumnType("nvarchar(30)");
+
+                    b.Property<string>("Username")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CreatedAt");
+
+                    SqlServerIndexBuilderExtensions.IncludeProperties(b.HasIndex("CreatedAt"), new[] { "Username", "UseCaseName", "IsSuccessfull" });
+
+                    b.HasIndex("CreatedAt", "Username", "UseCaseName");
+
+                    SqlServerIndexBuilderExtensions.IncludeProperties(b.HasIndex("CreatedAt", "Username", "UseCaseName"), new[] { "IsSuccessfull" });
+
+                    b.ToTable("UseCaseLogs");
                 });
 
             modelBuilder.Entity("Domain.Identity.User", b =>
@@ -139,7 +182,7 @@ namespace DataAccess.FlowDesk.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Users", (string)null);
+                    b.ToTable("Users");
                 });
 
             modelBuilder.Entity("Domain.Identity.UserRole", b =>
@@ -163,7 +206,7 @@ namespace DataAccess.FlowDesk.Migrations
                     b.HasIndex("UserId", "RoleId")
                         .IsUnique();
 
-                    b.ToTable("UserRoles", (string)null);
+                    b.ToTable("UserRoles");
                 });
 
             modelBuilder.Entity("Domain.Identity.UserRolePermission", b =>
@@ -187,7 +230,7 @@ namespace DataAccess.FlowDesk.Migrations
                     b.HasIndex("UserRoleId", "PermissionId")
                         .IsUnique();
 
-                    b.ToTable("UserRolePermissions", (string)null);
+                    b.ToTable("UserRolePermissions");
                 });
 
             modelBuilder.Entity("Domain.Identity.UserTeam", b =>
@@ -205,7 +248,7 @@ namespace DataAccess.FlowDesk.Migrations
 
                     b.HasIndex("TeamId");
 
-                    b.ToTable("UserTeams", (string)null);
+                    b.ToTable("UserTeams");
                 });
 
             modelBuilder.Entity("Domain.ProjectTracking.Project", b =>
@@ -249,7 +292,7 @@ namespace DataAccess.FlowDesk.Migrations
 
                     b.HasIndex("StatusId");
 
-                    b.ToTable("Projects", (string)null);
+                    b.ToTable("Projects");
                 });
 
             modelBuilder.Entity("Domain.ProjectTracking.ProjectTask", b =>
@@ -301,7 +344,7 @@ namespace DataAccess.FlowDesk.Migrations
 
                     b.HasIndex("StatusId");
 
-                    b.ToTable("Tasks", (string)null);
+                    b.ToTable("Tasks");
                 });
 
             modelBuilder.Entity("Domain.ProjectTracking.ProjectTeam", b =>
@@ -319,7 +362,7 @@ namespace DataAccess.FlowDesk.Migrations
 
                     b.HasIndex("TeamId");
 
-                    b.ToTable("ProjectTeams", (string)null);
+                    b.ToTable("ProjectTeams");
                 });
 
             modelBuilder.Entity("Domain.ProjectTracking.Team", b =>
@@ -337,7 +380,7 @@ namespace DataAccess.FlowDesk.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Teams", (string)null);
+                    b.ToTable("Teams");
                 });
 
             modelBuilder.Entity("Domain.Statuses.Status", b =>
@@ -360,7 +403,7 @@ namespace DataAccess.FlowDesk.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Statuses", (string)null);
+                    b.ToTable("Statuses");
                 });
 
             modelBuilder.Entity("Domain.Identity.AuthToken", b =>

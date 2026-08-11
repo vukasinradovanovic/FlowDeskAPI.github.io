@@ -1,5 +1,4 @@
-﻿using DataAccess.FlowDesk.Configurations.Project_Tracking_Configurations;
-using Domain.Identity;
+﻿using Domain.Identity;
 using Domain.ProjectTracking;
 using Domain.Statuses;
 using Microsoft.EntityFrameworkCore;
@@ -32,7 +31,7 @@ namespace DataAccess.FlowDesk
 
                 if (string.IsNullOrEmpty(connectionString))
                 {
-                    var configuration = new ConfigurationBuilder()  
+                    var configuration = new ConfigurationBuilder()
                         .SetBasePath(Directory.GetCurrentDirectory())
                         .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
                         .Build();
@@ -53,8 +52,8 @@ namespace DataAccess.FlowDesk
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-           modelBuilder.ApplyConfigurationsFromAssembly(typeof(FlowDbContext).Assembly );
-           base.OnModelCreating(modelBuilder);
+            modelBuilder.ApplyConfigurationsFromAssembly(typeof(FlowDbContext).Assembly);
+            base.OnModelCreating(modelBuilder);
         }
 
         public DbSet<User> Users { get; set; }
@@ -69,6 +68,7 @@ namespace DataAccess.FlowDesk
         public DbSet<Status> Statuses { get; set; }
         public DbSet<UserTeam> UserTeams { get; set; }
         public DbSet<AuthToken> AuthTokens { get; set; }
+        public DbSet<UseCaseLog> UseCaseLogs { get; set; }
 
     }
 }

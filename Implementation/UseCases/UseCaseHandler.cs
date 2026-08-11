@@ -1,20 +1,20 @@
 ﻿using Application;
 using Application.Exceptions;
 using Application.Flowdesk.Interfaces;
-using System;
-using System.Collections.Generic;
+using DataAccess.FlowDesk;
 using System.Diagnostics;
-using System.Text;
 
 namespace Implementation.UseCases
 {
     public class UseCaseHandler
     {
         private IApplicationUser _user;
+        private FlowDbContext _context;
 
-        public UseCaseHandler(IApplicationUser user)
+        public UseCaseHandler(IApplicationUser user, FlowDbContext context)
         {
             _user = user;
+            _context = context;
         }
 
         public void HandleAuthorization(IUseCase useCase)

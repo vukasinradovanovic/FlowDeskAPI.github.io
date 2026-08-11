@@ -88,3 +88,5 @@ C:\Users\Vukasin\source\repos\FlowDeskAPI\FlowDeskAPI\bin\Debug\net10.0\Implemen
 C:\Users\Vukasin\source\repos\FlowDeskAPI\FlowDeskAPI\bin\Debug\net10.0\Implementation.pdb
 C:\Users\Vukasin\source\repos\FlowDeskAPI\FlowDeskAPI\obj\Debug\net10.0\Sentry.Attributes.cs
 C:\Users\Vukasin\source\repos\FlowDeskAPI\FlowDeskAPI\bin\Debug\net10.0\FluentValidation.DependencyInjectionExtensions.dll
+C:\Users\Vukasin\source\repos\FlowDeskAPI\FlowDeskAPI\obj\Debug\net10.0\FlowDeskAPI.sourcelink.json
+C:\Users\Vukasin\source\repos\FlowDeskAPI\FlowDeskAPI\obj\Debug\net10.0\staticwebassets.upToDateCheck.txt

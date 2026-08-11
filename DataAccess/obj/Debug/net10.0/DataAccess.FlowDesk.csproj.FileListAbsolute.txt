@@ -15,3 +15,4 @@ C:\Users\Vukasin\source\repos\FlowDeskAPI\DataAccess\obj\Debug\net10.0\refint\Da
 C:\Users\Vukasin\source\repos\FlowDeskAPI\DataAccess\obj\Debug\net10.0\DataAccess.FlowDesk.pdb
 C:\Users\Vukasin\source\repos\FlowDeskAPI\DataAccess\obj\Debug\net10.0\DataAccess.FlowDesk.genruntimeconfig.cache
 C:\Users\Vukasin\source\repos\FlowDeskAPI\DataAccess\obj\Debug\net10.0\ref\DataAccess.FlowDesk.dll
+C:\Users\Vukasin\source\repos\FlowDeskAPI\DataAccess\obj\Debug\net10.0\DataAccess.FlowDesk.sourcelink.json

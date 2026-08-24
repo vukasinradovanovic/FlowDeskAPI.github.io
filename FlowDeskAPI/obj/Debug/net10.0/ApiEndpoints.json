@@ -42,9 +42,9 @@
     "ReturnTypes": []
   },
   {
-    "ContainingType": "FlowDeskAPI.Controllers.Auth.AuthController",
+    "ContainingType": "FlowDeskAPI.Controllers.Auth.RegisterController",
     "Method": "Register",
-    "RelativePath": "api/auth/register",
+    "RelativePath": "api/Register",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,

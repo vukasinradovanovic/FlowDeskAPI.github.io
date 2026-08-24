@@ -1,7 +1,4 @@
 ﻿using Domain.Identity;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace DataAccess.FlowDesk.Seeders.SeedData
 {
@@ -11,6 +8,7 @@ namespace DataAccess.FlowDesk.Seeders.SeedData
         {
             return new List<Permission>
             {
+                new Permission { Name = "Guest Permissions" },
                 new Permission { Name = "View Projects" },
                 new Permission { Name = "Create Projects" },
                 new Permission { Name = "Edit Projects" },
@@ -18,7 +16,7 @@ namespace DataAccess.FlowDesk.Seeders.SeedData
                 new Permission { Name = "View Tasks" },
                 new Permission { Name = "Create Tasks" },
                 new Permission { Name = "Edit Tasks" },
-                new Permission { Name = "Delete Tasks" }
+                new Permission { Name = "Delete Tasks" },
             };
         }
     }

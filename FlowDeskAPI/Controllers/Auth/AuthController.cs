@@ -1,10 +1,8 @@
 ﻿using Api.Flowdesk.DTO.Autentification;
-using Application.Flowdesk.DTO.Auth;
 using Application.Flowdesk.Settings;
 using DataAccess.FlowDesk;
 using Domain.Identity;
 using FlowDesk.API.JWT;
-using FluentValidation;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -47,51 +45,6 @@ namespace FlowDeskAPI.Controllers.Auth
             return Ok(_handler.MakeToken(user));
         }
 
-        [AllowAnonymous]
-        [HttpPost("register")]
-        public async Task<ActionResult> Register(
-                    [FromBody] RegisterRequest request,
-                    [FromServices] IValidator<RegisterRequest> validator)
-        {
-            var validationResult = await validator.ValidateAsync(request);
-            if (!validationResult.IsValid)
-            {
-                return BadRequest(validationResult.Errors.Select(e => new { Field = e.PropertyName, Message = e.ErrorMessage }));
-            }
-
-            var normalizedEmail = request.Email.Trim().ToLower();
-            if (_context.Users.Any(u => u.Email.ToLower() == normalizedEmail))
-            {
-                return Conflict(new { message = "User already existsin our system." });
-            }
-
-            var roleDefault = _roleSettings.DefaultRoleId;
-            var defaultRoleExists = await _context.Roles.AnyAsync(r => r.Id == _roleSettings.DefaultRoleId);
-            if (!defaultRoleExists)
-            {
-                return StatusCode(500, new { message = $"System Error: Default role ID '{_roleSettings.DefaultRoleId}' is not configured in the database." });
-            }
-
-            User user = new User
-            {
-                FirstName = request.FirstName.Trim(),
-                LastName = request.LastName.Trim(),
-                Email = normalizedEmail,
-                Password = BCrypt.Net.BCrypt.HashPassword(request.Password),
-                AvatarColor = string.IsNullOrWhiteSpace(request.AvatarColor) ? "indigo" : request.AvatarColor
-            };
-            UserRole userRole = new UserRole
-            {
-                User = user,
-                RoleId = _roleSettings.DefaultRoleId
-            };
-
-            _context.Users.Add(user);
-            _context.UserRoles.Add(userRole);
-            _context.SaveChanges();
-
-            return StatusCode(201, _handler.MakeToken(user));
-        }
 
         [HttpPost("logout")]
         public IActionResult Logout()

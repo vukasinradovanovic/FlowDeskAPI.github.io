@@ -1,7 +1,4 @@
 ﻿using Domain.Identity;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace DataAccess.FlowDesk.Seeders.SeedData
 {
@@ -13,6 +10,7 @@ namespace DataAccess.FlowDesk.Seeders.SeedData
             {
                 new User
                 {
+                    Username = "sarah1",
                     FirstName = "Sarah",
                     LastName = "Jenkins",
                     Email = "sarah@flowdesk.com",
@@ -21,6 +19,7 @@ namespace DataAccess.FlowDesk.Seeders.SeedData
                 },
                 new User
                 {
+                    Username = "john1",
                     FirstName = "John",
                     LastName = "Doe",
                     Email = "john@flowdesk.com",
@@ -29,6 +28,7 @@ namespace DataAccess.FlowDesk.Seeders.SeedData
                 },
                 new User
                 {
+                    Username = "emily1",
                     FirstName = "Emily",
                     LastName = "Smith",
                     Email = "emily@flowdesk.com",
@@ -37,6 +37,7 @@ namespace DataAccess.FlowDesk.Seeders.SeedData
                 },
                 new User
                 {
+                    Username = "michael1",
                     FirstName = "Michael",
                     LastName = "Brown",
                     Email = "michael@flowdesk.com",
@@ -45,6 +46,7 @@ namespace DataAccess.FlowDesk.Seeders.SeedData
                 },
                 new User
                 {
+                    Username = "jessica1",
                     FirstName = "Jessica",
                     LastName = "Davis",
                     Email = "jessica@flowdesk.com",

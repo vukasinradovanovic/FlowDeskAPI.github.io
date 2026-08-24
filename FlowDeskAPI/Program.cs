@@ -1,3 +1,4 @@
+using Application.Flowdesk.Commands.Auth;
 using Application.Flowdesk.Settings;
 using DataAccess.FlowDesk;
 using Domain.Identity;
@@ -6,7 +7,9 @@ using FlowDeskAPI;
 using FlowDeskAPI.Extentions;
 using FlowWith.API;
 using FluentValidation;
-using Implementation.UseCases.Validators;
+using Implementation.Permissions;
+using Implementation.Permissions.Commands.Auth;
+using Implementation.Permissions.Validators;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
@@ -84,10 +87,21 @@ builder.Services.AddAuthentication(options =>
 });
 
 // ==========================================
-// 4. Validation and Settings Services Configuration
+// 4. Services Configuration
 // ==========================================
-builder.Services.AddValidatorsFromAssemblyContaining<RegisterUserValidator>();
+
+// 1. Handlers & Core Infrastructure
+builder.Services.AddScoped<PerrmissionHandler>();
+
+// 2. Options Settings
 builder.Services.Configure<RoleSettings>(builder.Configuration.GetSection("RoleSettings"));
+builder.Services.Configure<DefaultPermissionSettings>(builder.Configuration.GetSection("DefaultPermissionSettings"));
+
+// 3. Validators
+builder.Services.AddValidatorsFromAssemblyContaining<RegisterUserValidator>();
+
+// 4. Commands & Permissions
+builder.Services.AddTransient<IRegisterUserCommand, EfRegisterCommand>();
 
 var app = builder.Build();
 

@@ -1,15 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Application.Exceptions
+﻿namespace Application.Exceptions
 {
-    public class UnauthorizedUseCaseException : Exception
+    public class UnauthorizedPermissionException : Exception
     {
-        public UnauthorizedUseCaseException(int id, string firstName, string lastName, string email, string useCaseName)
-            : base($"User with ID:{id} and credentials: {firstName} {lastName}  has tried to execute {useCaseName}. Email of the user is {email}.")
+        public UnauthorizedPermissionException(int id, string username, string firstName, string lastName, string email, string permissionName)
+            : base($"User with ID:{id}, Username: {username}, credentials: {firstName} {lastName}  has tried to execute {permissionName}. Email of the user is {email}.")
         {
-            
+
         }
     }
 }

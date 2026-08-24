@@ -38,7 +38,7 @@ namespace FlowDesk.API.Middleware
                 }
 
 
-                if (ex is UnauthorizedUseCaseException)
+                if (ex is UnauthorizedPermissionException)
                 {
                     context.Response.StatusCode = 401;
                     return;
@@ -50,7 +50,8 @@ namespace FlowDesk.API.Middleware
                 await context.Response.WriteAsJsonAsync(new
                 {
                     message = "An unexpected error has occured. " +
-                              $"Please contact support using this parameter: {id}."
+                              $"Please contact support using this parameter: {id}." +
+                              $"Message: {ex.Message}"
                 });
 
             }

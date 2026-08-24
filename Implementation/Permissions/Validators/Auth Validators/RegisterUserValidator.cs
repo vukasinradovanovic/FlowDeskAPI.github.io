@@ -3,11 +3,8 @@ using DataAccess.FlowDesk;
 using Domain.Enums;
 using FluentValidation;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
-namespace Implementation.UseCases.Validators
+namespace Implementation.Permissions.Validators
 {
     public class RegisterUserValidator : AbstractValidator<RegisterRequest>
     {
@@ -18,6 +15,10 @@ namespace Implementation.UseCases.Validators
             _context = context;
 
             this.RuleLevelCascadeMode = CascadeMode.Stop;
+
+            RuleFor(x => x.Username).NotEmpty().WithMessage("Username is required.")
+                                    .Matches("^[A-Za-z0-9]+(?:[ _-][A-Za-z0-9]+)*$").WithMessage("Username can only contain letters, numbers, and underscores.")
+                                    .Must(x => !_context.Users.Any(u => u.Username == x)).WithMessage("Username is in use.");
 
             RuleFor(x => x.FirstName)
                 .NotEmpty().WithMessage("First name is required.")

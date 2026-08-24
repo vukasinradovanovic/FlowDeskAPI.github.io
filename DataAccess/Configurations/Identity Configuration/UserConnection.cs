@@ -1,9 +1,6 @@
 ﻿using Domain.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace DataAccess.FlowDesk.Connections
 {
@@ -11,6 +8,13 @@ namespace DataAccess.FlowDesk.Connections
     {
         public void Configure(EntityTypeBuilder<User> builder)
         {
+            builder.Property(x => x.Username)
+                   .IsRequired()
+                   .HasMaxLength(30);
+
+            builder.HasIndex(x => x.Username)
+                   .IsUnique();
+
             builder.Property(x => x.FirstName)
                    .IsRequired()
                    .HasMaxLength(50);

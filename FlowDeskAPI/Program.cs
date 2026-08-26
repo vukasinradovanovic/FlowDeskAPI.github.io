@@ -1,5 +1,5 @@
 using Application.Flowdesk.Commands.Auth;
-using Application.Flowdesk.Commands.Team;
+using Application.Flowdesk.Commands.Teams;
 using Application.Flowdesk.Queries.Projects;
 using Application.Flowdesk.Queries.Teams;
 using Application.Flowdesk.Settings;
@@ -110,6 +110,7 @@ builder.Services.AddValidatorsFromAssemblyContaining<RegisterUserValidator>();
 builder.Services.AddTransient<IRegisterUserCommand, EfRegisterCommand>();
 builder.Services.AddTransient<IGetUsersTeamQuery, EfGetUserTeams>();
 builder.Services.AddTransient<ICreateTeamCommand, EfCreateTeamCommand>();
+builder.Services.AddTransient<IUpdateTeamCommand, EfUpdateTeamCommand>();
 builder.Services.AddTransient<IGetProjectsQuery, EfGetAllUserProjects>();
 
 

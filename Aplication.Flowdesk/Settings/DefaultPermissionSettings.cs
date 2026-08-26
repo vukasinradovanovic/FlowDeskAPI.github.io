@@ -8,5 +8,7 @@
         public string ViewUserProjectsName { get; set; }
         public int CreateTeamsId { get; set; }
         public string CreateTeamsName { get; set; }
+        public int EditTeamsId { get; set; }
+        public string EditTeamsName { get; set; }
     }
 }

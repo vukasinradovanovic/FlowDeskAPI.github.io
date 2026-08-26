@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("FlowDeskAPI")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+fa53fb7358edde77eedb73e68fe575b64b9afb98")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+56e4d3f9ced4eddab4f8b08a1dfe9e5590242eb6")]
 [assembly: System.Reflection.AssemblyProductAttribute("FlowDeskAPI")]
 [assembly: System.Reflection.AssemblyTitleAttribute("FlowDeskAPI")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

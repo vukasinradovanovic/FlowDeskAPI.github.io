@@ -1,4 +1,4 @@
-﻿using Application.Flowdesk.Commands.Team;
+﻿using Application.Flowdesk.Commands.Teams;
 using Application.Flowdesk.DTO.CreateTeamRequest;
 using Application.Flowdesk.Settings;
 using DataAccess.FlowDesk;

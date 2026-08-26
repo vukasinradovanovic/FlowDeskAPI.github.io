@@ -17,15 +17,25 @@ namespace FlowDesk.API.JWT
 
         public JwtHandler(AppSettings appSettings, FlowDbContext context)
         {
-            this._appSettings = appSettings;
+            _appSettings = appSettings;
             _context = context;
         }
 
         public JwtTokenResponse MakeToken(User user)
         {
-            Guid tokenGuid = Guid.NewGuid();
             var now = DateTime.UtcNow;
             var tokenId = Guid.NewGuid().ToString();
+
+            // Safe fallback logic for expirations
+            var jwtExpiryMinutes = _appSettings.JwtSettings.ExpiryInMinutes > 0
+                ? _appSettings.JwtSettings.ExpiryInMinutes
+                : 60;
+            var jwtExpiresAt = now.AddMinutes(jwtExpiryMinutes);
+
+            var refreshExpiryDays = _appSettings.JwtSettings.RefreshTokenExpiryInDays > 0
+                ? _appSettings.JwtSettings.RefreshTokenExpiryInDays
+                : 7;
+            var refreshExpiresAt = now.AddDays(refreshExpiryDays); // Fixed AddMonths -> AddDays
 
             var primaryUserRole = user.UserRoles?.FirstOrDefault();
             var roleName = primaryUserRole?.Role?.Name ?? string.Empty;
@@ -50,17 +60,14 @@ namespace FlowDesk.API.JWT
             };
 
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_appSettings.JwtSettings.SecretKey));
-
             var credentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
-            var expiryMinutes = _appSettings.JwtSettings.ExpiryInMinutes > 0 ? _appSettings.JwtSettings.ExpiryInMinutes : 60;
-            var expires = now.AddMinutes(expiryMinutes);
 
             var token = new JwtSecurityToken(
                 issuer: _appSettings.JwtSettings.Issuer,
                 audience: "Any",
                 claims: claims,
                 notBefore: now,
-                expires: now.AddMinutes(_appSettings.JwtSettings.ExpiryInMinutes),
+                expires: jwtExpiresAt,
                 signingCredentials: credentials);
 
             var refreshToken = Guid.NewGuid().ToString();
@@ -68,7 +75,7 @@ namespace FlowDesk.API.JWT
             var jwtToken = new AuthToken
             {
                 CreatedAt = now,
-                ExpiresAt = now.AddMinutes(_appSettings.JwtSettings.ExpiryInMinutes),
+                ExpiresAt = jwtExpiresAt,
                 TokenId = tokenId,
                 UserId = user.Id,
             };
@@ -77,7 +84,7 @@ namespace FlowDesk.API.JWT
             {
                 TokenId = refreshToken,
                 CreatedAt = now,
-                ExpiresAt = now.AddMonths(_appSettings.JwtSettings.RefreshTokenExpiryInDays),
+                ExpiresAt = refreshExpiresAt,
                 UserId = user.Id,
                 JwtToken = jwtToken
             };
@@ -85,22 +92,21 @@ namespace FlowDesk.API.JWT
             _context.AuthTokens.Add(jwtToken);
             _context.AuthTokens.Add(refreshTokenEntity);
             _context.SaveChanges();
+
             return new JwtTokenResponse
             {
                 Token = new JwtSecurityTokenHandler().WriteToken(token),
                 RefreshToken = refreshToken,
                 User = new UserResponse
                 {
+                    Id = user.Id,
                     FirstName = user.FirstName,
                     LastName = user.LastName,
                     Username = user.Username,
                     Email = user.Email,
                     AvatarColor = user.AvatarColor,
-                    Role = user.UserRoles?.FirstOrDefault()?.Role?.Name,
-                    Permissions = user.UserRoles?.FirstOrDefault()?.UserRolePermissions?
-                                                    .Where(p => p.Permission != null)
-                                                    .Select(p => new PermissionResponse { Name = p.Permission.Name })
-                                                        ?? Enumerable.Empty<PermissionResponse>()
+                    Role = roleName,
+                    Permissions = permissions.Select(name => new PermissionResponse { Name = name })
                 }
             };
         }

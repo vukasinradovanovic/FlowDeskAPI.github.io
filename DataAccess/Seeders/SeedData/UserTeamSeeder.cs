@@ -1,7 +1,4 @@
 ﻿using Domain.Identity;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace DataAccess.FlowDesk.Seeders.SeedData
 {
@@ -17,6 +14,5 @@ namespace DataAccess.FlowDesk.Seeders.SeedData
                 new UserTeam { UserId = 4, TeamId = 2 },
             };
         }
-    {
     }
 }

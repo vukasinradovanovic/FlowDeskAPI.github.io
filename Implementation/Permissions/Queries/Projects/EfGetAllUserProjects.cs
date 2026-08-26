@@ -1,5 +1,6 @@
 ﻿using Application;
 using Application.Flowdesk.DTO.Projects;
+using Application.Flowdesk.DTO.Statuses;
 using Application.Flowdesk.Queries.Projects;
 using Application.Flowdesk.Settings;
 using DataAccess.FlowDesk;
@@ -27,12 +28,18 @@ namespace Implementation.Permissions.Queries.Projects
                 .Where(p => p.ProjectTeams.Any(pt => pt.Team.Members.Any(m => m.UserId == _user.Id)))
                 .Select(p => new ProjectResponse
                 {
+                    Id = p.Id,
                     Name = p.Name,
                     Slug = p.Slug,
                     Icon = p.Icon,
                     Theme = p.Theme,
                     DueDate = p.DueDate,
-                    CreatedAt = p.CreatedAt
+                    CreatedAt = p.CreatedAt,
+                    Status = new StatusResponse
+                    {
+                        Name = p.Status.Name,
+                        Theme = p.Status.StatusTheme
+                    }
                 })
                 .ToList();
         }

@@ -21,6 +21,7 @@ namespace DataAccess.FlowDesk.Seeders
                 new UserRolePermissionSeeder(),
                 new AuthTokenSeeder(),
                 new ProjectTeamSeeder(),
+                new UserTeamSeeder(),
             };
 
             foreach (var seeder in seederSequence)

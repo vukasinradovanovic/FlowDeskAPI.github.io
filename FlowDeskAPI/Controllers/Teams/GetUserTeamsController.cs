@@ -6,7 +6,7 @@ namespace FlowDeskAPI.Controllers.Teams
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class GetUsersTeamController : ControllerBase
+    public class GetUserTeamsController : ControllerBase
     {
         [HttpGet]
         public ActionResult GetUsersTeam([FromServices] IGetUsersTeamQuery query,

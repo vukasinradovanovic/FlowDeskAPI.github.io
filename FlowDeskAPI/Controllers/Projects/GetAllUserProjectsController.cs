@@ -6,12 +6,12 @@ namespace FlowDeskAPI.Controllers.Projects
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class GetAllUsersProjectsController : ControllerBase
+    public class GetAllUserProjectsController : ControllerBase
     {
         [HttpGet]
         public ActionResult GetAllUsersProjects(
             [FromServices] IGetProjectsQuery query,
-            [FromQuery] PermissionHandler hendler)
+            [FromServices] PermissionHandler hendler)
         {
             var projects = hendler.ExecuteQuery(query, null);
             return Ok(projects);

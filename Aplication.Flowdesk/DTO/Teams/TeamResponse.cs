@@ -5,6 +5,7 @@ namespace Application.Flowdesk.DTO.Teams
 {
     public class TeamResponse
     {
+        public int Id { get; set; }
         public string Name { get; set; }
         public IEnumerable<ProjectResponse> Projects { get; set; }
         public IEnumerable<UserResponse> Members { get; set; }

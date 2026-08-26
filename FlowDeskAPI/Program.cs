@@ -1,4 +1,5 @@
 using Application.Flowdesk.Commands.Auth;
+using Application.Flowdesk.Queries.Projects;
 using Application.Flowdesk.Queries.Teams;
 using Application.Flowdesk.Settings;
 using DataAccess.FlowDesk;
@@ -10,6 +11,7 @@ using FlowWith.API;
 using FluentValidation;
 using Implementation.Permissions;
 using Implementation.Permissions.Commands.Auth;
+using Implementation.Permissions.Queries.Projects;
 using Implementation.Permissions.Queries.Teams;
 using Implementation.Permissions.Validators;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -105,6 +107,7 @@ builder.Services.AddValidatorsFromAssemblyContaining<RegisterUserValidator>();
 // 4. Commands & Permissions
 builder.Services.AddTransient<IRegisterUserCommand, EfRegisterCommand>();
 builder.Services.AddTransient<IGetUsersTeamQuery, EfGetUserTeams>();
+builder.Services.AddTransient<IGetProjectsQuery, EfGetAllUserProjects>();
 
 var app = builder.Build();
 

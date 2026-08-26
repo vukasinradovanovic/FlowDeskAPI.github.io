@@ -13,10 +13,10 @@
     }
   ],
   "paths": {
-    "/api/GetUsersTeam": {
+    "/api/GetUserTeams": {
       "get": {
         "tags": [
-          "GetUsersTeam"
+          "GetUserTeams"
         ],
         "responses": {
           "200": {
@@ -25,19 +25,10 @@
         }
       }
     },
-    "/api/GetAllUsersProjects": {
+    "/api/GetAllUserProjects": {
       "get": {
         "tags": [
-          "GetAllUsersProjects"
-        ],
-        "parameters": [
-          {
-            "name": "hendler",
-            "in": "query",
-            "schema": {
-              "$ref": "#/components/schemas/PermissionHandler"
-            }
-          }
+          "GetAllUserProjects"
         ],
         "responses": {
           "200": {
@@ -168,9 +159,6 @@
           }
         }
       },
-      "PermissionHandler": {
-        "type": "object"
-      },
       "RefreshTokenRequest": {
         "type": "object",
         "properties": {
@@ -206,10 +194,10 @@
   },
   "tags": [
     {
-      "name": "GetUsersTeam"
+      "name": "GetUserTeams"
     },
     {
-      "name": "GetAllUsersProjects"
+      "name": "GetAllUserProjects"
     },
     {
       "name": "Auth"

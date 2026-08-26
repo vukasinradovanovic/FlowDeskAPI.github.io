@@ -42,25 +42,19 @@
     "ReturnTypes": []
   },
   {
-    "ContainingType": "FlowDeskAPI.Controllers.Projects.GetAllUsersProjectsController",
+    "ContainingType": "FlowDeskAPI.Controllers.Projects.GetAllUserProjectsController",
     "Method": "GetAllUsersProjects",
-    "RelativePath": "api/GetAllUsersProjects",
+    "RelativePath": "api/GetAllUserProjects",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
-    "Parameters": [
-      {
-        "Name": "hendler",
-        "Type": "Implementation.Permissions.PermissionHandler",
-        "IsRequired": false
-      }
-    ],
+    "Parameters": [],
     "ReturnTypes": []
   },
   {
-    "ContainingType": "FlowDeskAPI.Controllers.Teams.GetUsersTeamController",
+    "ContainingType": "FlowDeskAPI.Controllers.Teams.GetUserTeamsController",
     "Method": "GetUsersTeam",
-    "RelativePath": "api/GetUsersTeam",
+    "RelativePath": "api/GetUserTeams",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,

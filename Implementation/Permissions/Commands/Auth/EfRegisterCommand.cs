@@ -11,16 +11,14 @@ namespace Implementation.Permissions.Commands.Auth
     public class EfRegisterCommand : EfPermissions, IRegisterUserCommand
     {
         private readonly RoleSettings _roleSettings;
-        private readonly DefaultPermissionSettings _defaultPermissionSettings;
 
         public EfRegisterCommand(FlowDbContext context,
                                  RegisterUserValidator validator,
                                  IOptions<RoleSettings> roleSettings,
                                  IOptions<DefaultPermissionSettings> defaultPermissionSettings)
-                            : base(context)
+                            : base(context, defaultPermissionSettings.Value)
         {
             _roleSettings = roleSettings.Value;
-            _defaultPermissionSettings = defaultPermissionSettings.Value;
         }
 
         public string Name => _defaultPermissionSettings.GuestPermissionName;
@@ -43,15 +41,20 @@ namespace Implementation.Permissions.Commands.Auth
                 User = user,
                 RoleId = _roleSettings.DefaultRoleId
             };
-            UserRolePermission userRolePermission = new UserRolePermission
+            UserRolePermission userRolePermissionGuest = new UserRolePermission
             {
                 UserRole = userRole,
                 PermissionId = _defaultPermissionSettings.GuestPermissionId
             };
+            UserRolePermission userRolePermissionViewUserProjects = new UserRolePermission
+            {
+                UserRole = userRole,
+                PermissionId = _defaultPermissionSettings.ViewUserProjectsId
+            };
 
             _context.Users.Add(user);
             _context.UserRoles.Add(userRole);
-            _context.UserRolePermissions.Add(userRolePermission);
+            _context.UserRolePermissions.AddRange(userRolePermissionGuest, userRolePermissionViewUserProjects);
             _context.SaveChanges();
         }
     }

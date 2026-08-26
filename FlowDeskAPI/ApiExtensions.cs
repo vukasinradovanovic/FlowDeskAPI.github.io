@@ -1,15 +1,12 @@
 ﻿using Application;
+using Application.Flowdesk.DTO.Auth;
 using DataAccess.FlowDesk;
 using FlowDesk.API.ExceptionLogging;
 using FlowDesk.API.JWT;
 using FlowDeskAPI;
-using FluentValidation.Results;
 using Implementation;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
-using Microsoft.Extensions.DependencyInjection;
+using Newtonsoft.Json;
 using System.IdentityModel.Tokens.Jwt;
-using System.Linq;
 
 namespace FlowWith.API
 {
@@ -32,7 +29,7 @@ namespace FlowWith.API
             {
                 var accessor = container.GetService<IHttpContextAccessor>(); //service locator
 
-                if(accessor.HttpContext == null)
+                if (accessor.HttpContext == null)
                 {
                     return new UnauthorizedUser();
                 }
@@ -41,11 +38,11 @@ namespace FlowWith.API
                 {
                     return new UnauthorizedUser();
                 }
-                
+
                 var header = accessor.HttpContext.Request.Headers.Authorization; //Bearer token
                 var headerParts = header.ToString().Split(" ");
-                
-                if(headerParts.Count() != 2 || headerParts[0] != "Bearer")
+
+                if (headerParts.Count() != 2 || headerParts[0] != "Bearer")
                 {
                     return new UnauthorizedUser();
                 }
@@ -55,12 +52,25 @@ namespace FlowWith.API
                 var handler = new JwtSecurityTokenHandler();
                 var jwtToken = handler.ReadJwtToken(token);
 
-                //jwtToken.Claims
+                var permissionsClaim = jwtToken.Claims.FirstOrDefault(x => x.Type == "PermissionsIds")?.Value;
+
+                var permissions = !string.IsNullOrEmpty(permissionsClaim)
+                                                ? JsonConvert.DeserializeObject<List<string>>(permissionsClaim)
+                                                : new List<string>();
 
                 return new JwtUser
                 {
                     Id = int.Parse(jwtToken.Claims.FirstOrDefault(x => x.Type == "Id").Value),
                     Email = jwtToken.Claims.FirstOrDefault(x => x.Type == "Email").Value,
+                    FirstName = jwtToken.Claims.FirstOrDefault(x => x.Type == "FirstName").Value,
+                    LastName = jwtToken.Claims.FirstOrDefault(x => x.Type == "LastName").Value,
+                    Username = jwtToken.Claims.FirstOrDefault(x => x.Type == "Username").Value,
+                    Permissions = permissions,
+                    Role = new RoleResponse
+                    {
+                        Id = int.Parse(jwtToken.Claims.FirstOrDefault(x => x.Type == "RoleId").Value),
+                        Name = jwtToken.Claims.FirstOrDefault(x => x.Type == "RoleName").Value
+                    }
                 };
             });
         }

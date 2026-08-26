@@ -4,5 +4,7 @@
     {
         public int GuestPermissionId { get; set; }
         public string GuestPermissionName { get; set; }
+        public int ViewUserProjectsId { get; set; }
+        public string ViewUserProjectsName { get; set; }
     }
 }

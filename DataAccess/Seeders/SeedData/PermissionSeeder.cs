@@ -9,6 +9,7 @@ namespace DataAccess.FlowDesk.Seeders.SeedData
             return new List<Permission>
             {
                 new Permission { Name = "Guest Permissions" },
+                new Permission { Name = "View User Projects" },
                 new Permission { Name = "View Projects" },
                 new Permission { Name = "Create Projects" },
                 new Permission { Name = "Edit Projects" },

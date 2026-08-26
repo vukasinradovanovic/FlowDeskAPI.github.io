@@ -42,6 +42,26 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "FlowDeskAPI.Controllers.Projects.GetAllUserProjectsController",
+    "Method": "GetAllUsersProjects",
+    "RelativePath": "api/GetAllUserProjects",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "FlowDeskAPI.Controllers.Teams.GetUserTeamsController",
+    "Method": "GetUsersTeam",
+    "RelativePath": "api/GetUserTeams",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "FlowDeskAPI.Controllers.Auth.RegisterController",
     "Method": "Register",
     "RelativePath": "api/Register",

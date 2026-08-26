@@ -9,12 +9,12 @@ using System.Diagnostics;
 namespace Implementation.Permissions
 
 {
-    public class PerrmissionHandler
+    public class PermissionHandler
     {
         private IApplicationUser _user;
         private FlowDbContext _context;
 
-        public PerrmissionHandler(IApplicationUser user, FlowDbContext context)
+        public PermissionHandler(IApplicationUser user, FlowDbContext context)
         {
             _user = user;
             _context = context;

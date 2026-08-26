@@ -13,6 +13,30 @@
     }
   ],
   "paths": {
+    "/api/GetUserTeams": {
+      "get": {
+        "tags": [
+          "GetUserTeams"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/GetAllUserProjects": {
+      "get": {
+        "tags": [
+          "GetAllUserProjects"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/api/auth/login": {
       "post": {
         "tags": [
@@ -169,6 +193,12 @@
     }
   },
   "tags": [
+    {
+      "name": "GetUserTeams"
+    },
+    {
+      "name": "GetAllUserProjects"
+    },
     {
       "name": "Auth"
     },

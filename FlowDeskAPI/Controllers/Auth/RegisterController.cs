@@ -14,7 +14,7 @@ namespace FlowDeskAPI.Controllers.Auth
         [HttpPost]
         public ActionResult Register(
             [FromServices] IRegisterUserCommand cmd,
-            [FromServices] PerrmissionHandler handler,
+            [FromServices] PermissionHandler handler,
             [FromBody] RegisterRequest request
             )
         {

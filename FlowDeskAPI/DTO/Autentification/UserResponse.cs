@@ -1,4 +1,6 @@
-﻿namespace FlowDeskAPI.DTO.Autentification
+﻿using Application.Flowdesk.DTO.Auth;
+
+namespace FlowDeskAPI.DTO.Autentification
 {
     public class UserResponse
     {
@@ -8,8 +10,8 @@
         public string LastName { get; set; }
         public string Email { get; set; }
         public string AvatarColor { get; set; }
-        public string Role { get; set; }
         public IEnumerable<PermissionResponse> Permissions { get; set; }
+        public RoleResponse Role { get; set; }
 
     }
 }

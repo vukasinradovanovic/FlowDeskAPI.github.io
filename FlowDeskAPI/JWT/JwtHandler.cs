@@ -1,4 +1,5 @@
-﻿using DataAccess.FlowDesk;
+﻿using Application.Flowdesk.DTO.Auth;
+using DataAccess.FlowDesk;
 using Domain.Identity;
 using FlowDeskAPI;
 using FlowDeskAPI.DTO.Autentification;
@@ -39,6 +40,7 @@ namespace FlowDesk.API.JWT
 
             var primaryUserRole = user.UserRoles?.FirstOrDefault();
             var roleName = primaryUserRole?.Role?.Name ?? string.Empty;
+            var roleId = primaryUserRole?.Role?.Id ?? 0;
 
             var permissions = primaryUserRole?.UserRolePermissions?
                 .Where(urp => urp.Permission != null)
@@ -54,6 +56,8 @@ namespace FlowDesk.API.JWT
                 new Claim("LastName", user.LastName ?? string.Empty),
                 new Claim("Email", user.Email ?? string.Empty),
                 new Claim("Role", roleName),
+                new Claim("RoleId", roleId.ToString()),
+                new Claim("RoleName", roleName),
                 new Claim("Username", user.Username ?? string.Empty),
                 new Claim("TokenId", tokenId),
                 new Claim("PermissionsIds", JsonConvert.SerializeObject(permissions), ClaimValueTypes.String)
@@ -105,7 +109,11 @@ namespace FlowDesk.API.JWT
                     Username = user.Username,
                     Email = user.Email,
                     AvatarColor = user.AvatarColor,
-                    Role = roleName,
+                    Role = new RoleResponse
+                    {
+                        Id = roleId,
+                        Name = roleName
+                    },
                     Permissions = permissions.Select(name => new PermissionResponse { Name = name })
                 }
             };

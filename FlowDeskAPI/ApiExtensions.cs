@@ -1,4 +1,5 @@
 ﻿using Application;
+using Application.Flowdesk.DTO.Auth;
 using DataAccess.FlowDesk;
 using FlowDesk.API.ExceptionLogging;
 using FlowDesk.API.JWT;
@@ -64,7 +65,12 @@ namespace FlowWith.API
                     FirstName = jwtToken.Claims.FirstOrDefault(x => x.Type == "FirstName").Value,
                     LastName = jwtToken.Claims.FirstOrDefault(x => x.Type == "LastName").Value,
                     Username = jwtToken.Claims.FirstOrDefault(x => x.Type == "Username").Value,
-                    Permissions = permissions
+                    Permissions = permissions,
+                    Role = new RoleResponse
+                    {
+                        Id = int.Parse(jwtToken.Claims.FirstOrDefault(x => x.Type == "RoleId").Value),
+                        Name = jwtToken.Claims.FirstOrDefault(x => x.Type == "RoleName").Value
+                    }
                 };
             });
         }

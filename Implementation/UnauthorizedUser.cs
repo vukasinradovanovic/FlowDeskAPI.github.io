@@ -1,4 +1,5 @@
 ﻿using Application;
+using Application.Flowdesk.DTO.Auth;
 
 namespace Implementation
 {
@@ -10,5 +11,6 @@ namespace Implementation
         public string LastName => "Guest";
         public string Email => "guest@gmail.com";
         public IEnumerable<String> Permissions => new List<string> { "Guest Permissions", "View User Projects" };
+        public RoleResponse Role => new RoleResponse { Id = 0, Name = "Guest" };
     }
 }

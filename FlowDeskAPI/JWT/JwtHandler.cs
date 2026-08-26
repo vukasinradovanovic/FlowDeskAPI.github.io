@@ -3,6 +3,7 @@ using Domain.Identity;
 using FlowDeskAPI;
 using FlowDeskAPI.DTO.Autentification;
 using Microsoft.IdentityModel.Tokens;
+using Newtonsoft.Json;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
@@ -38,13 +39,14 @@ namespace FlowDesk.API.JWT
             {
                 new Claim(JwtRegisteredClaimNames.Iss, _appSettings.JwtSettings.Issuer),
                 new Claim(JwtRegisteredClaimNames.Iat, DateTimeOffset.UtcNow.ToUnixTimeSeconds().ToString(), ClaimValueTypes.Integer64),
-                new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
-                new Claim(ClaimTypes.GivenName, user.FirstName ?? string.Empty),
-                new Claim(ClaimTypes.Surname, user.LastName ?? string.Empty),
-                new Claim(ClaimTypes.Email, user.Email ?? string.Empty),
-                new Claim(ClaimTypes.Role, roleName),
+                new Claim("Id", user.Id.ToString()),
+                new Claim("FirstName", user.FirstName ?? string.Empty),
+                new Claim("LastName", user.LastName ?? string.Empty),
+                new Claim("Email", user.Email ?? string.Empty),
+                new Claim("Role", roleName),
+                new Claim("Username", user.Username ?? string.Empty),
                 new Claim("TokenId", tokenId),
-                new Claim("PermissionsIds", string.Join(",", permissions))
+                new Claim("PermissionsIds", JsonConvert.SerializeObject(permissions), ClaimValueTypes.String)
             };
 
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_appSettings.JwtSettings.SecretKey));
@@ -91,6 +93,7 @@ namespace FlowDesk.API.JWT
                 {
                     FirstName = user.FirstName,
                     LastName = user.LastName,
+                    Username = user.Username,
                     Email = user.Email,
                     AvatarColor = user.AvatarColor,
                     Role = user.UserRoles?.FirstOrDefault()?.Role?.Name,

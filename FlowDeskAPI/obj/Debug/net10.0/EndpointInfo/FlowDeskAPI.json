@@ -13,6 +13,39 @@
     }
   ],
   "paths": {
+    "/api/GetUsersTeam": {
+      "get": {
+        "tags": [
+          "GetUsersTeam"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/GetAllUsersProjects": {
+      "get": {
+        "tags": [
+          "GetAllUsersProjects"
+        ],
+        "parameters": [
+          {
+            "name": "hendler",
+            "in": "query",
+            "schema": {
+              "$ref": "#/components/schemas/PermissionHandler"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/api/auth/login": {
       "post": {
         "tags": [
@@ -135,6 +168,9 @@
           }
         }
       },
+      "PermissionHandler": {
+        "type": "object"
+      },
       "RefreshTokenRequest": {
         "type": "object",
         "properties": {
@@ -169,6 +205,12 @@
     }
   },
   "tags": [
+    {
+      "name": "GetUsersTeam"
+    },
+    {
+      "name": "GetAllUsersProjects"
+    },
     {
       "name": "Auth"
     },

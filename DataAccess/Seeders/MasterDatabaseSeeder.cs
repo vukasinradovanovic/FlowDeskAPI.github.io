@@ -1,7 +1,4 @@
 ﻿using DataAccess.FlowDesk.Seeders.SeedData;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace DataAccess.FlowDesk.Seeders
 {
@@ -23,6 +20,7 @@ namespace DataAccess.FlowDesk.Seeders
                 new UserRoleSeeder(),
                 new UserRolePermissionSeeder(),
                 new AuthTokenSeeder(),
+                new ProjectTeamSeeder(),
             };
 
             foreach (var seeder in seederSequence)

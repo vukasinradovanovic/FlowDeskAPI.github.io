@@ -1,4 +1,5 @@
 using Application.Flowdesk.Commands.Auth;
+using Application.Flowdesk.Queries.Teams;
 using Application.Flowdesk.Settings;
 using DataAccess.FlowDesk;
 using Domain.Identity;
@@ -9,6 +10,7 @@ using FlowWith.API;
 using FluentValidation;
 using Implementation.Permissions;
 using Implementation.Permissions.Commands.Auth;
+using Implementation.Permissions.Queries.Teams;
 using Implementation.Permissions.Validators;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
@@ -91,7 +93,7 @@ builder.Services.AddAuthentication(options =>
 // ==========================================
 
 // 1. Handlers & Core Infrastructure
-builder.Services.AddScoped<PerrmissionHandler>();
+builder.Services.AddScoped<PermissionHandler>();
 
 // 2. Options Settings
 builder.Services.Configure<RoleSettings>(builder.Configuration.GetSection("RoleSettings"));
@@ -102,6 +104,7 @@ builder.Services.AddValidatorsFromAssemblyContaining<RegisterUserValidator>();
 
 // 4. Commands & Permissions
 builder.Services.AddTransient<IRegisterUserCommand, EfRegisterCommand>();
+builder.Services.AddTransient<IGetUsersTeamQuery, EfGetUserTeams>();
 
 var app = builder.Build();
 

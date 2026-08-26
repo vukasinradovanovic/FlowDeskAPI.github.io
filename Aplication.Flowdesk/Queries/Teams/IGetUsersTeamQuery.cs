@@ -1,4 +1,4 @@
-﻿using Application.Flowdesk.DTO.Teams;
+﻿using Application.Flowdesk.DTO.TeamDto;
 using Application.Flowdesk.Interfaces;
 
 namespace Application.Flowdesk.Queries.Teams

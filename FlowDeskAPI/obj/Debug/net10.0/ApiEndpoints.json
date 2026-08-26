@@ -42,6 +42,22 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "FlowDeskAPI.Controllers.Teams.CreateTeamController",
+    "Method": "Create",
+    "RelativePath": "api/CreateTeam",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "Application.Flowdesk.DTO.CreateTeamRequest.CreateTeamRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "FlowDeskAPI.Controllers.Projects.GetAllUserProjectsController",
     "Method": "GetAllUsersProjects",
     "RelativePath": "api/GetAllUserProjects",

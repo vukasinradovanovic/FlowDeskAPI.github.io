@@ -13,6 +13,38 @@
     }
   ],
   "paths": {
+    "/api/CreateTeam": {
+      "get": {
+        "tags": [
+          "CreateTeam"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateTeamRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateTeamRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateTeamRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/api/GetUserTeams": {
       "get": {
         "tags": [
@@ -148,6 +180,14 @@
   },
   "components": {
     "schemas": {
+      "CreateTeamRequest": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          }
+        }
+      },
       "LoginRequest": {
         "type": "object",
         "properties": {
@@ -193,6 +233,9 @@
     }
   },
   "tags": [
+    {
+      "name": "CreateTeam"
+    },
     {
       "name": "GetUserTeams"
     },

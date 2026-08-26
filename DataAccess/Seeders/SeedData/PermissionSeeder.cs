@@ -18,6 +18,10 @@ namespace DataAccess.FlowDesk.Seeders.SeedData
                 new Permission { Name = "Create Tasks" },
                 new Permission { Name = "Edit Tasks" },
                 new Permission { Name = "Delete Tasks" },
+                new Permission { Name = "Create Teams" },
+                new Permission { Name = "Delete Teams" },
+                new Permission { Name = "Edit Teams" },
+
             };
         }
     }

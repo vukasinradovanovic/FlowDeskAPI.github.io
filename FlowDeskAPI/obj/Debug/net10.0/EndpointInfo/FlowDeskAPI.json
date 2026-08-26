@@ -13,11 +13,102 @@
     }
   ],
   "paths": {
+    "/api/CreateTeam": {
+      "post": {
+        "tags": [
+          "CreateTeam"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateTeamRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateTeamRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateTeamRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/DeleteTeam/{id}": {
+      "delete": {
+        "tags": [
+          "DeleteTeam"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "pattern": "^-?(?:0|[1-9]\\d*)$",
+              "type": [
+                "integer",
+                "string"
+              ],
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/api/GetUserTeams": {
       "get": {
         "tags": [
           "GetUserTeams"
         ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/UpdateTeam": {
+      "put": {
+        "tags": [
+          "UpdateTeam"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateTeamRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateTeamRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateTeamRequest"
+              }
+            }
+          },
+          "required": true
+        },
         "responses": {
           "200": {
             "description": "OK"
@@ -148,6 +239,14 @@
   },
   "components": {
     "schemas": {
+      "CreateTeamRequest": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          }
+        }
+      },
       "LoginRequest": {
         "type": "object",
         "properties": {
@@ -189,12 +288,37 @@
             "type": "string"
           }
         }
+      },
+      "UpdateTeamRequest": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "pattern": "^-?(?:0|[1-9]\\d*)$",
+            "type": [
+              "integer",
+              "string"
+            ],
+            "format": "int32"
+          },
+          "name": {
+            "type": "string"
+          }
+        }
       }
     }
   },
   "tags": [
     {
+      "name": "CreateTeam"
+    },
+    {
+      "name": "DeleteTeam"
+    },
+    {
       "name": "GetUserTeams"
+    },
+    {
+      "name": "UpdateTeam"
     },
     {
       "name": "GetAllUserProjects"

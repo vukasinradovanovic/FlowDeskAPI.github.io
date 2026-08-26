@@ -42,6 +42,38 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "FlowDeskAPI.Controllers.Teams.CreateTeamController",
+    "Method": "Create",
+    "RelativePath": "api/CreateTeam",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "Application.Flowdesk.DTO.CreateTeamRequest.CreateTeamRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "FlowDeskAPI.Controllers.Teams.DeleteTeamController",
+    "Method": "Delete",
+    "RelativePath": "api/DeleteTeam/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "FlowDeskAPI.Controllers.Projects.GetAllUserProjectsController",
     "Method": "GetAllUsersProjects",
     "RelativePath": "api/GetAllUserProjects",
@@ -72,6 +104,22 @@
       {
         "Name": "request",
         "Type": "Application.Flowdesk.DTO.Auth.RegisterRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "FlowDeskAPI.Controllers.Teams.UpdateTeamController",
+    "Method": "Update",
+    "RelativePath": "api/UpdateTeam",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "Application.Flowdesk.DTO.Teams.UpdateTeamRequest",
         "IsRequired": true
       }
     ],

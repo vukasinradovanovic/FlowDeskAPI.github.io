@@ -1,7 +1,7 @@
 ﻿using Application.Flowdesk.DTO.Projects;
 using FlowDeskAPI.DTO.Autentification;
 
-namespace Application.Flowdesk.DTO.Teams
+namespace Application.Flowdesk.DTO.TeamDto
 {
     public class TeamResponse
     {

@@ -1,7 +1,7 @@
 ﻿using Application;
 using Application.Flowdesk.DTO.Projects;
 using Application.Flowdesk.DTO.Statuses;
-using Application.Flowdesk.DTO.Teams;
+using Application.Flowdesk.DTO.TeamDto;
 using Application.Flowdesk.Queries.Teams;
 using Application.Flowdesk.Settings;
 using DataAccess.FlowDesk;

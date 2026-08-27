@@ -84,10 +84,49 @@
         }
       }
     },
-    "/api/UpdateTeam": {
+    "/api/ShowTeam/{id}": {
+      "get": {
+        "tags": [
+          "ShowTeam"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "pattern": "^-?(?:0|[1-9]\\d*)$",
+              "type": [
+                "integer",
+                "string"
+              ],
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/UpdateTeam/{id}": {
       "put": {
         "tags": [
           "UpdateTeam"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "pattern": "^-?(?:0|[1-9]\\d*)$",
+              "type": "integer",
+              "format": "int32"
+            }
+          }
         ],
         "requestBody": {
           "content": {
@@ -328,6 +367,9 @@
     },
     {
       "name": "GetUserTeams"
+    },
+    {
+      "name": "ShowTeam"
     },
     {
       "name": "UpdateTeam"

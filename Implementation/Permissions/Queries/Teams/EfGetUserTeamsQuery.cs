@@ -9,10 +9,10 @@ using Microsoft.Extensions.Options;
 
 namespace Implementation.Permissions.Queries.Teams
 {
-    public class EfGetUserTeams : EfPermissions, IGetUsersTeamQuery
+    public class EfGetUserTeamsQuery : EfPermissions, IGetUsersTeamQuery
     {
         private readonly IApplicationUser _currentUser;
-        public EfGetUserTeams(FlowDbContext context, IOptions<DefaultPermissionSettings> defaultPermissionSettings, IApplicationUser currentUser) : base(context, defaultPermissionSettings.Value)
+        public EfGetUserTeamsQuery(FlowDbContext context, IOptions<DefaultPermissionSettings> defaultPermissionSettings, IApplicationUser currentUser) : base(context, defaultPermissionSettings.Value)
         {
             _currentUser = currentUser;
         }
@@ -27,6 +27,7 @@ namespace Implementation.Permissions.Queries.Teams
                  .Where(t => t.Members.Any(m => m.UserId == _currentUser.Id))
                  .Select(t => new TeamResponse
                  {
+                     Id = t.Id,
                      Name = t.Name,
                      Projects = t.ProjectTeams.Select(tp => new ProjectResponse
                      {

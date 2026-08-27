@@ -12,5 +12,7 @@
         public string EditTeamsName { get; set; }
         public int DeleteTeamsId { get; set; }
         public string DeleteTeamsName { get; set; }
+        public int ViewTeamsId { get; set; }
+        public string ViewTeamsName { get; set; }
     }
 }

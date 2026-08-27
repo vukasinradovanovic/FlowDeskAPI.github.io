@@ -84,8 +84,18 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "FlowDeskAPI.Controllers.Permissions.GetPermissionsController",
+    "Method": "Index",
+    "RelativePath": "api/GetPermissions",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "FlowDeskAPI.Controllers.Teams.GetUserTeamsController",
-    "Method": "GetUsersTeam",
+    "Method": "Index",
     "RelativePath": "api/GetUserTeams",
     "HttpMethod": "GET",
     "IsController": true,

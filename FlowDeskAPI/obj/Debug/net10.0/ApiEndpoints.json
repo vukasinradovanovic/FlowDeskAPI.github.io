@@ -74,6 +74,16 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "FlowDeskAPI.Controllers.Teams.GetAllTeamsController",
+    "Method": "Index",
+    "RelativePath": "api/GetAllTeams",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "FlowDeskAPI.Controllers.Projects.GetAllUserProjectsController",
     "Method": "GetAllUsersProjects",
     "RelativePath": "api/GetAllUserProjects",
@@ -84,8 +94,18 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "FlowDeskAPI.Controllers.Permissions.GetPermissionsController",
+    "Method": "Index",
+    "RelativePath": "api/GetPermissions",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "FlowDeskAPI.Controllers.Teams.GetUserTeamsController",
-    "Method": "GetUsersTeam",
+    "Method": "Index",
     "RelativePath": "api/GetUserTeams",
     "HttpMethod": "GET",
     "IsController": true,
@@ -110,9 +130,25 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "FlowDeskAPI.Controllers.Teams.ShowTeamController",
+    "Method": "Show",
+    "RelativePath": "api/ShowTeam/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "FlowDeskAPI.Controllers.Teams.UpdateTeamController",
     "Method": "Update",
-    "RelativePath": "api/UpdateTeam",
+    "RelativePath": "api/UpdateTeam/{id}",
     "HttpMethod": "PUT",
     "IsController": true,
     "Order": 0,
@@ -120,6 +156,11 @@
       {
         "Name": "request",
         "Type": "Application.Flowdesk.DTO.Teams.UpdateTeamRequest",
+        "IsRequired": true
+      },
+      {
+        "Name": "id",
+        "Type": "System.Int32",
         "IsRequired": true
       }
     ],

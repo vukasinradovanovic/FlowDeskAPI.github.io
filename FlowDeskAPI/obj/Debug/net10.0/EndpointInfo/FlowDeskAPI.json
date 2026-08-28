@@ -72,6 +72,18 @@
         }
       }
     },
+    "/api/GetAllTeams": {
+      "get": {
+        "tags": [
+          "GetAllTeams"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/api/GetUserTeams": {
       "get": {
         "tags": [
@@ -84,10 +96,49 @@
         }
       }
     },
-    "/api/UpdateTeam": {
+    "/api/ShowTeam/{id}": {
+      "get": {
+        "tags": [
+          "ShowTeam"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "pattern": "^-?(?:0|[1-9]\\d*)$",
+              "type": [
+                "integer",
+                "string"
+              ],
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/UpdateTeam/{id}": {
       "put": {
         "tags": [
           "UpdateTeam"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "pattern": "^-?(?:0|[1-9]\\d*)$",
+              "type": "integer",
+              "format": "int32"
+            }
+          }
         ],
         "requestBody": {
           "content": {
@@ -120,6 +171,18 @@
       "get": {
         "tags": [
           "GetAllUserProjects"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/GetPermissions": {
+      "get": {
+        "tags": [
+          "GetPermissions"
         ],
         "responses": {
           "200": {
@@ -315,13 +378,22 @@
       "name": "DeleteTeam"
     },
     {
+      "name": "GetAllTeams"
+    },
+    {
       "name": "GetUserTeams"
+    },
+    {
+      "name": "ShowTeam"
     },
     {
       "name": "UpdateTeam"
     },
     {
       "name": "GetAllUserProjects"
+    },
+    {
+      "name": "GetPermissions"
     },
     {
       "name": "Auth"

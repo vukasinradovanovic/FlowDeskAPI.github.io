@@ -9,10 +9,10 @@ namespace FlowDeskAPI.Controllers.Teams
     public class GetUserTeamsController : ControllerBase
     {
         [HttpGet]
-        public ActionResult GetUsersTeam([FromServices] IGetUsersTeamQuery query,
-                                         [FromServices] PermissionHandler hendler)
+        public ActionResult Index([FromServices] IGetUsersTeamQuery query,
+                                  [FromServices] PermissionHandler handler)
         {
-            var teams = hendler.ExecuteQuery(query, null);
+            var teams = handler.ExecuteQuery(query, null);
             return Ok(teams);
         }
     }

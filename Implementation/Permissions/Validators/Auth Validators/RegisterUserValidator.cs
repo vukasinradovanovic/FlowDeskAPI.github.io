@@ -2,23 +2,26 @@
 using DataAccess.FlowDesk;
 using Domain.Enums;
 using FluentValidation;
+using Implementation.Permissions.Validators.Common;
 using Microsoft.EntityFrameworkCore;
 
 namespace Implementation.Permissions.Validators
 {
-    public class RegisterUserValidator : AbstractValidator<RegisterRequest>
+    public class RegisterUserValidator : CommonValidator<RegisterRequest>
     {
-        private readonly FlowDbContext _context;
-
-        public RegisterUserValidator(FlowDbContext context)
+        public RegisterUserValidator(FlowDbContext context) : base(context)
         {
-            _context = context;
+            ClassLevelCascadeMode = CascadeMode.Stop;
 
-            this.RuleLevelCascadeMode = CascadeMode.Stop;
-
-            RuleFor(x => x.Username).NotEmpty().WithMessage("Username is required.")
-                                    .Matches("^[A-Za-z0-9]+(?:[ _-][A-Za-z0-9]+)*$").WithMessage("Username can only contain letters, numbers, and underscores.")
-                                    .Must(x => !_context.Users.Any(u => u.Username == x)).WithMessage("Username is in use.");
+            RuleFor(x => x.Username)
+                .NotEmpty().WithMessage("Username is required.")
+                .Matches(@"^[A-Za-z0-9]+(?:[ _-][A-Za-z0-9]+)*$")
+                .WithMessage("Username can only contain letters, numbers, spaces, hyphens, and underscores.")
+                .MustAsync(async (username, cancellationToken) =>
+                {
+                    return !await _context.Users.AnyAsync(u => u.Username == username, cancellationToken);
+                })
+                .WithMessage("Username is in use.");
 
             RuleFor(x => x.FirstName)
                 .NotEmpty().WithMessage("First name is required.")
@@ -34,9 +37,8 @@ namespace Implementation.Permissions.Validators
                 .MaximumLength(100).WithMessage("Email cannot exceed 100 characters.")
                 .MustAsync(async (email, cancellationToken) =>
                 {
-                    var normalizedEmail = email.Trim().ToLower();
-                    bool exists = await _context.Users.AnyAsync(u => u.Email.ToLower() == normalizedEmail, cancellationToken);
-                    return !exists;
+                    var normalizedEmail = email.Trim();
+                    return !await _context.Users.AnyAsync(u => u.Email == normalizedEmail, cancellationToken);
                 })
                 .WithMessage("Email address is already in use.");
 
@@ -48,9 +50,8 @@ namespace Implementation.Permissions.Validators
                 .Matches(@"[0-9]").WithMessage("Password must contain at least one number.");
 
             RuleFor(x => x.AvatarColor)
-                .Must(color => string.IsNullOrEmpty(color) || System.Enum.TryParse<AvatarColor>(color, true, out _))
+                .Must(color => string.IsNullOrEmpty(color) || Enum.TryParse<AvatarColor>(color, true, out _))
                 .WithMessage("Avatar color must be one of the following: emerald, indigo, amber, rose.");
-
         }
     }
 }

@@ -72,6 +72,18 @@
         }
       }
     },
+    "/api/GetAllTeams": {
+      "get": {
+        "tags": [
+          "GetAllTeams"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/api/GetUserTeams": {
       "get": {
         "tags": [
@@ -364,6 +376,9 @@
     },
     {
       "name": "DeleteTeam"
+    },
+    {
+      "name": "GetAllTeams"
     },
     {
       "name": "GetUserTeams"

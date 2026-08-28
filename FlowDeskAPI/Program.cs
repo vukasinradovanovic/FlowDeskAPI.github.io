@@ -111,6 +111,7 @@ builder.Services.AddTransient<IRegisterUserCommand, EfRegisterCommand>();
 //          Team Section
 builder.Services.AddTransient<IGetUsersTeamQuery, EfGetUserTeamsQuery>();
 builder.Services.AddTransient<IGetTeamByIdQuery, EfGetTeamByIdQuery>();
+builder.Services.AddTransient<IGetAllTeamsQuery, EfGetAllTeams>();
 builder.Services.AddTransient<ICreateTeamCommand, EfCreateTeamCommand>();
 builder.Services.AddTransient<IUpdateTeamCommand, EfUpdateTeamCommand>();
 builder.Services.AddTransient<IDeleteTeamCommand, EfDeleteTeamCommand>();

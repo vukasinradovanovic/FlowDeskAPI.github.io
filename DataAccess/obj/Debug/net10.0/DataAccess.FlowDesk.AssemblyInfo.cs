@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("DataAccess.FlowDesk")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+0994405672969fd11201bb3ee495b10523ad64c5")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+6506238fe91e4620a338432435fb408a28b530f2")]
 [assembly: System.Reflection.AssemblyProductAttribute("DataAccess.FlowDesk")]
 [assembly: System.Reflection.AssemblyTitleAttribute("DataAccess.FlowDesk")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

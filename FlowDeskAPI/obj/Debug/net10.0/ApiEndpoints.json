@@ -74,6 +74,16 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "FlowDeskAPI.Controllers.Teams.GetAllTeamsController",
+    "Method": "Index",
+    "RelativePath": "api/GetAllTeams",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "FlowDeskAPI.Controllers.Projects.GetAllUserProjectsController",
     "Method": "GetAllUsersProjects",
     "RelativePath": "api/GetAllUserProjects",

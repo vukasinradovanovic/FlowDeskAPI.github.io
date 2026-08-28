@@ -167,6 +167,50 @@
         }
       }
     },
+    "/api/CreateProject": {
+      "post": {
+        "tags": [
+          "CreateProject"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateProjectRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateProjectRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateProjectRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/GetAllProjects": {
+      "get": {
+        "tags": [
+          "GetAllProjects"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/api/GetAllUserProjects": {
       "get": {
         "tags": [
@@ -302,6 +346,32 @@
   },
   "components": {
     "schemas": {
+      "CreateProjectRequest": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "icon": {
+            "type": "string"
+          },
+          "theme": {
+            "type": "string"
+          },
+          "dueDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "teamId": {
+            "pattern": "^-?(?:0|[1-9]\\d*)$",
+            "type": [
+              "integer",
+              "string"
+            ],
+            "format": "int32"
+          }
+        }
+      },
       "CreateTeamRequest": {
         "type": "object",
         "properties": {
@@ -388,6 +458,12 @@
     },
     {
       "name": "UpdateTeam"
+    },
+    {
+      "name": "CreateProject"
+    },
+    {
+      "name": "GetAllProjects"
     },
     {
       "name": "GetAllUserProjects"

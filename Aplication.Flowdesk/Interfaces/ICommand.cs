@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Application.Flowdesk.Interfaces
+﻿namespace Application.Flowdesk.Interfaces
 {
     public interface ICommand<TRequest> : IPermission
     {
-        void Execute(TRequest data);
+        void Execute(TRequest request);
     }
 }

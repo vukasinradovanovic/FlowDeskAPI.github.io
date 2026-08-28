@@ -1,4 +1,5 @@
 using Application.Flowdesk.Commands.Auth;
+using Application.Flowdesk.Commands.Projects;
 using Application.Flowdesk.Commands.Teams;
 using Application.Flowdesk.Queries.Projects;
 using Application.Flowdesk.Queries.Teams;
@@ -12,6 +13,7 @@ using FlowWith.API;
 using FluentValidation;
 using Implementation.Permissions;
 using Implementation.Permissions.Commands.Auth;
+using Implementation.Permissions.Commands.Projects;
 using Implementation.Permissions.Commands.Teams;
 using Implementation.Permissions.Queries.Projects;
 using Implementation.Permissions.Queries.Teams;
@@ -101,6 +103,7 @@ builder.Services.AddScoped<PermissionHandler>();
 
 // 2. Options Settings
 builder.Services.Configure<RoleSettings>(builder.Configuration.GetSection("RoleSettings"));
+builder.Services.Configure<StatusSettings>(builder.Configuration.GetSection("StatusSettings"));
 builder.Services.Configure<DefaultPermissionSettings>(builder.Configuration.GetSection("DefaultPermissionSettings"));
 
 // 3. Validators
@@ -116,7 +119,9 @@ builder.Services.AddTransient<ICreateTeamCommand, EfCreateTeamCommand>();
 builder.Services.AddTransient<IUpdateTeamCommand, EfUpdateTeamCommand>();
 builder.Services.AddTransient<IDeleteTeamCommand, EfDeleteTeamCommand>();
 
-builder.Services.AddTransient<IGetProjectsQuery, EfGetAllUserProjects>();
+//         Project Section
+builder.Services.AddTransient<IGetProjectsQuery, EfGetAllUserProjectsQuery>();
+builder.Services.AddTransient<ICreateProjectCommand, EfCreateProjectCommand>();
 
 
 var app = builder.Build();

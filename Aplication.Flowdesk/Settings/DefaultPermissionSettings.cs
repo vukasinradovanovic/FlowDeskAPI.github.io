@@ -6,6 +6,10 @@
         public string GuestPermissionName { get; set; }
         public int ViewUserProjectsId { get; set; }
         public string ViewUserProjectsName { get; set; }
+        public int ViewProjectsId { get; set; }
+        public string ViewProjectsName { get; set; }
+        public int CreateProjectsId { get; set; }
+        public string CreateProjectsName { get; set; }
         public int CreateTeamsId { get; set; }
         public string CreateTeamsName { get; set; }
         public int EditTeamsId { get; set; }

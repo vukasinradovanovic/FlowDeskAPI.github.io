@@ -244,13 +244,19 @@ namespace DataAccess.FlowDesk.Migrations
             modelBuilder.Entity("Domain.Identity.UserTeam", b =>
                 {
                     b.Property<int>("UserId")
-                        .HasColumnType("int");
+                        .HasColumnType("int")
+                        .HasColumnOrder(1);
 
                     b.Property<int>("TeamId")
-                        .HasColumnType("int");
+                        .HasColumnType("int")
+                        .HasColumnOrder(2);
 
                     b.Property<int>("Id")
-                        .HasColumnType("int");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasColumnOrder(0);
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.HasKey("UserId", "TeamId");
 
@@ -275,8 +281,8 @@ namespace DataAccess.FlowDesk.Migrations
 
                     b.Property<string>("Icon")
                         .IsRequired()
-                        .HasMaxLength(15)
-                        .HasColumnType("nvarchar(15)");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -357,18 +363,27 @@ namespace DataAccess.FlowDesk.Migrations
 
             modelBuilder.Entity("Domain.ProjectTracking.ProjectTeam", b =>
                 {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasColumnOrder(0);
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
                     b.Property<int>("ProjectId")
-                        .HasColumnType("int");
+                        .HasColumnType("int")
+                        .HasColumnOrder(1);
 
                     b.Property<int>("TeamId")
-                        .HasColumnType("int");
+                        .HasColumnType("int")
+                        .HasColumnOrder(2);
 
-                    b.Property<int>("Id")
-                        .HasColumnType("int");
-
-                    b.HasKey("ProjectId", "TeamId");
+                    b.HasKey("Id");
 
                     b.HasIndex("TeamId");
+
+                    b.HasIndex("ProjectId", "TeamId")
+                        .IsUnique();
 
                     b.ToTable("ProjectTeams");
                 });

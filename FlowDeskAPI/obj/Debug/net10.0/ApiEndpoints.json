@@ -42,6 +42,22 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "FlowDeskAPI.Controllers.Projects.CreateProjectController",
+    "Method": "Create",
+    "RelativePath": "api/CreateProject",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "Application.Flowdesk.DTO.Projects.CreateProjectRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "FlowDeskAPI.Controllers.Teams.CreateTeamController",
     "Method": "Create",
     "RelativePath": "api/CreateTeam",
@@ -71,6 +87,16 @@
         "IsRequired": true
       }
     ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "FlowDeskAPI.Controllers.Projects.GetAllProjectsController",
+    "Method": "Index",
+    "RelativePath": "api/GetAllProjects",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
     "ReturnTypes": []
   },
   {

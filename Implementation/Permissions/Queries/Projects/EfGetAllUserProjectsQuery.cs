@@ -8,10 +8,10 @@ using Microsoft.Extensions.Options;
 
 namespace Implementation.Permissions.Queries.Projects
 {
-    public class EfGetAllUserProjects : EfPermissions, IGetProjectsQuery
+    public class EfGetAllUserProjectsQuery : EfPermissions, IGetProjectsQuery
     {
         private readonly IApplicationUser _user;
-        public EfGetAllUserProjects(FlowDbContext context,
+        public EfGetAllUserProjectsQuery(FlowDbContext context,
                                     IOptions<DefaultPermissionSettings> defaultPermissionSettings,
                                     IApplicationUser user)
                     : base(context, defaultPermissionSettings.Value)
@@ -37,6 +37,7 @@ namespace Implementation.Permissions.Queries.Projects
                     CreatedAt = p.CreatedAt,
                     Status = new StatusResponse
                     {
+                        Id = p.Status.Id,
                         Name = p.Status.Name,
                         Theme = p.Status.StatusTheme
                     }

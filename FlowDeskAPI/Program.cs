@@ -1,6 +1,8 @@
 using Application.Flowdesk.Commands.Auth;
+using Application.Flowdesk.Commands.Projects;
 using Application.Flowdesk.Commands.Teams;
 using Application.Flowdesk.Queries.Projects;
+using Application.Flowdesk.Queries.Statuses;
 using Application.Flowdesk.Queries.Teams;
 using Application.Flowdesk.Settings;
 using DataAccess.FlowDesk;
@@ -12,8 +14,10 @@ using FlowWith.API;
 using FluentValidation;
 using Implementation.Permissions;
 using Implementation.Permissions.Commands.Auth;
+using Implementation.Permissions.Commands.Projects;
 using Implementation.Permissions.Commands.Teams;
 using Implementation.Permissions.Queries.Projects;
+using Implementation.Permissions.Queries.Statuses;
 using Implementation.Permissions.Queries.Teams;
 using Implementation.Permissions.Validators;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -101,6 +105,7 @@ builder.Services.AddScoped<PermissionHandler>();
 
 // 2. Options Settings
 builder.Services.Configure<RoleSettings>(builder.Configuration.GetSection("RoleSettings"));
+builder.Services.Configure<StatusSettings>(builder.Configuration.GetSection("StatusSettings"));
 builder.Services.Configure<DefaultPermissionSettings>(builder.Configuration.GetSection("DefaultPermissionSettings"));
 
 // 3. Validators
@@ -116,7 +121,15 @@ builder.Services.AddTransient<ICreateTeamCommand, EfCreateTeamCommand>();
 builder.Services.AddTransient<IUpdateTeamCommand, EfUpdateTeamCommand>();
 builder.Services.AddTransient<IDeleteTeamCommand, EfDeleteTeamCommand>();
 
-builder.Services.AddTransient<IGetProjectsQuery, EfGetAllUserProjects>();
+//         Project Section
+builder.Services.AddTransient<IGetProjectsQuery, EfGetAllUserProjectsQuery>();
+builder.Services.AddTransient<IGetProjectBySlugQuery, EfGetProjectBySlugQuery>();
+builder.Services.AddTransient<ICreateProjectCommand, EfCreateProjectCommand>();
+builder.Services.AddTransient<IUpdateProjectCommand, EfUpdateProjectCommand>();
+//builder.Services.AddTransient<IDeleteProjectCommand, EfDeleteProjectCommand>();
+
+//         Status Section
+builder.Services.AddTransient<IGetAllStatusesQuery, EfGetAllStatusesQuery>();
 
 
 var app = builder.Build();
@@ -133,21 +146,20 @@ if (app.RunCommandLineSeeders(args))
 if (app.Environment.IsLocal())
 {
     Console.WriteLine("Lokalno okruzenje.");
-    //app.UseSwagger();  
-    //app.UseSwaggerUI();
 }
 else
 {
     Console.WriteLine(app.Environment.EnvironmentName);
 }
 
-app.UseHttpsRedirection();
 app.UseCors("AllowAngularDev");
+app.UseHttpsRedirection();
 
 app.UseMiddleware<GlobalExceptionHandlingMiddleware>();
+app.UseAuthentication();
 app.UseMiddleware<ApiKeyAuthorizationMiddleware>();
 app.UseAuthorization();
-
 app.MapControllers();
+
 
 app.Run();

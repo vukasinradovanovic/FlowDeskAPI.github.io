@@ -65,11 +65,29 @@ namespace DataAccess.FlowDesk.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "UseCaseLogs",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Username = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValueSql: "GETDATE()"),
+                    UseCaseName = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: false),
+                    UseCaseData = table.Column<string>(type: "TEXT", nullable: false),
+                    IsSuccessfull = table.Column<bool>(type: "bit", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_UseCaseLogs", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Users",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
+                    Username = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: false),
                     FirstName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     LastName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     Email = table.Column<string>(type: "nvarchar(120)", maxLength: 120, nullable: false),
@@ -89,7 +107,7 @@ namespace DataAccess.FlowDesk.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     Slug = table.Column<string>(type: "nvarchar(70)", maxLength: 70, nullable: false),
-                    Icon = table.Column<string>(type: "nvarchar(15)", maxLength: 15, nullable: false),
+                    Icon = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     Theme = table.Column<string>(type: "nvarchar(15)", maxLength: 15, nullable: false),
                     DueDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
@@ -166,9 +184,10 @@ namespace DataAccess.FlowDesk.Migrations
                 name: "UserTeams",
                 columns: table => new
                 {
-                    UserId = table.Column<int>(type: "int", nullable: false),
-                    TeamId = table.Column<int>(type: "int", nullable: false),
                     Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    UserId = table.Column<int>(type: "int", nullable: false),
+                    TeamId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -191,13 +210,14 @@ namespace DataAccess.FlowDesk.Migrations
                 name: "ProjectTeams",
                 columns: table => new
                 {
-                    ProjectId = table.Column<int>(type: "int", nullable: false),
-                    TeamId = table.Column<int>(type: "int", nullable: false),
                     Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    ProjectId = table.Column<int>(type: "int", nullable: false),
+                    TeamId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ProjectTeams", x => new { x.ProjectId, x.TeamId });
+                    table.PrimaryKey("PK_ProjectTeams", x => x.Id);
                     table.ForeignKey(
                         name: "FK_ProjectTeams_Projects_ProjectId",
                         column: x => x.ProjectId,
@@ -302,6 +322,12 @@ namespace DataAccess.FlowDesk.Migrations
                 column: "StatusId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_ProjectTeams_ProjectId_TeamId",
+                table: "ProjectTeams",
+                columns: new[] { "ProjectId", "TeamId" },
+                unique: true);
+
+            migrationBuilder.CreateIndex(
                 name: "IX_ProjectTeams_TeamId",
                 table: "ProjectTeams",
                 column: "TeamId");
@@ -320,6 +346,18 @@ namespace DataAccess.FlowDesk.Migrations
                 name: "IX_Tasks_StatusId",
                 table: "Tasks",
                 column: "StatusId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_UseCaseLogs_CreatedAt",
+                table: "UseCaseLogs",
+                column: "CreatedAt")
+                .Annotation("SqlServer:Include", new[] { "Username", "UseCaseName", "IsSuccessfull" });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_UseCaseLogs_CreatedAt_Username_UseCaseName",
+                table: "UseCaseLogs",
+                columns: new[] { "CreatedAt", "Username", "UseCaseName" })
+                .Annotation("SqlServer:Include", new[] { "IsSuccessfull" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_UserRolePermissions_PermissionId",
@@ -344,6 +382,12 @@ namespace DataAccess.FlowDesk.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
+                name: "IX_Users_Username",
+                table: "Users",
+                column: "Username",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
                 name: "IX_UserTeams_TeamId",
                 table: "UserTeams",
                 column: "TeamId");
@@ -360,6 +404,9 @@ namespace DataAccess.FlowDesk.Migrations
 
             migrationBuilder.DropTable(
                 name: "Tasks");
+
+            migrationBuilder.DropTable(
+                name: "UseCaseLogs");
 
             migrationBuilder.DropTable(
                 name: "UserRolePermissions");

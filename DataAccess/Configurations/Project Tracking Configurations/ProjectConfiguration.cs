@@ -1,8 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Domain.ProjectTracking
 {
@@ -12,7 +9,7 @@ namespace Domain.ProjectTracking
         {
             builder.Property(x => x.Name).HasMaxLength(50).IsRequired();
             builder.Property(x => x.Slug).HasMaxLength(70).IsRequired();
-            builder.Property(x => x.Icon).HasMaxLength(15).IsRequired();
+            builder.Property(x => x.Icon).HasMaxLength(50).IsRequired();
             builder.Property(x => x.Theme).HasMaxLength(15).IsRequired();
 
             builder.HasOne(x => x.Status)

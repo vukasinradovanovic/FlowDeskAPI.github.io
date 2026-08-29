@@ -1,9 +1,6 @@
 ﻿using Domain.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace DataAccess.FlowDesk.Configurations.Identity_Configuration
 {
@@ -11,6 +8,14 @@ namespace DataAccess.FlowDesk.Configurations.Identity_Configuration
     {
         public void Configure(EntityTypeBuilder<UserTeam> builder)
         {
+            builder.HasKey(pt => pt.Id);
+
+            builder.Property(pt => pt.Id)
+                   .HasColumnOrder(0)
+                   .ValueGeneratedOnAdd();
+
+            builder.Property(pt => pt.UserId).HasColumnOrder(1);
+            builder.Property(pt => pt.TeamId).HasColumnOrder(2);
             builder.HasKey(ut => new { ut.UserId, ut.TeamId });
         }
     }

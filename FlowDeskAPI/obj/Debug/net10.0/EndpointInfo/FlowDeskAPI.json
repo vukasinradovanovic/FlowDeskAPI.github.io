@@ -167,6 +167,18 @@
         }
       }
     },
+    "/api/GetAllStatuses": {
+      "get": {
+        "tags": [
+          "GetAllStatuses"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/api/CreateProject": {
       "post": {
         "tags": [
@@ -216,6 +228,70 @@
         "tags": [
           "GetAllUserProjects"
         ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/ShowProject/{slug}": {
+      "get": {
+        "tags": [
+          "ShowProject"
+        ],
+        "parameters": [
+          {
+            "name": "slug",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/UpdateProject/{slug}": {
+      "put": {
+        "tags": [
+          "UpdateProject"
+        ],
+        "parameters": [
+          {
+            "name": "slug",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateProjectRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateProjectRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateProjectRequest"
+              }
+            }
+          },
+          "required": true
+        },
         "responses": {
           "200": {
             "description": "OK"
@@ -422,6 +498,51 @@
           }
         }
       },
+      "UpdateProjectRequest": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "pattern": "^-?(?:0|[1-9]\\d*)$",
+            "type": [
+              "integer",
+              "string"
+            ],
+            "format": "int32"
+          },
+          "slug": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "icon": {
+            "type": "string"
+          },
+          "theme": {
+            "type": "string"
+          },
+          "dueDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "teamId": {
+            "pattern": "^-?(?:0|[1-9]\\d*)$",
+            "type": [
+              "integer",
+              "string"
+            ],
+            "format": "int32"
+          },
+          "statusId": {
+            "pattern": "^-?(?:0|[1-9]\\d*)$",
+            "type": [
+              "integer",
+              "string"
+            ],
+            "format": "int32"
+          }
+        }
+      },
       "UpdateTeamRequest": {
         "type": "object",
         "properties": {
@@ -460,6 +581,9 @@
       "name": "UpdateTeam"
     },
     {
+      "name": "GetAllStatuses"
+    },
+    {
       "name": "CreateProject"
     },
     {
@@ -467,6 +591,12 @@
     },
     {
       "name": "GetAllUserProjects"
+    },
+    {
+      "name": "ShowProject"
+    },
+    {
+      "name": "UpdateProject"
     },
     {
       "name": "GetPermissions"

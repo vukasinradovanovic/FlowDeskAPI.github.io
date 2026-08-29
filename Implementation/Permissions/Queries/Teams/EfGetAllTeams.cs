@@ -47,6 +47,7 @@ namespace Implementation.Permissions.Queries.Teams
                         CreatedAt = tp.Project.CreatedAt,
                         Status = new StatusResponse
                         {
+                            Id = tp.Project.Status.Id,
                             Name = tp.Project.Status.Name,
                             Theme = tp.Project.Status.StatusTheme
                         }

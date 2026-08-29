@@ -30,6 +30,7 @@ namespace Implementation.Permissions.Queries.Projects
                 CreatedAt = p.CreatedAt,
                 Status = new StatusResponse
                 {
+                    Id = p.Status.Id,
                     Name = p.Status.Name,
                     Theme = p.Status.StatusTheme,
                 }

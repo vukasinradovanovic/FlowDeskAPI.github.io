@@ -100,6 +100,16 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "FlowDeskAPI.Controllers.Statuses.GetAllStatusesController",
+    "Method": "Index",
+    "RelativePath": "api/GetAllStatuses",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "FlowDeskAPI.Controllers.Teams.GetAllTeamsController",
     "Method": "Index",
     "RelativePath": "api/GetAllTeams",
@@ -156,6 +166,22 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "FlowDeskAPI.Controllers.Projects.ShowProjectController",
+    "Method": "Show",
+    "RelativePath": "api/ShowProject/{slug}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "slug",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "FlowDeskAPI.Controllers.Teams.ShowTeamController",
     "Method": "Show",
     "RelativePath": "api/ShowTeam/{id}",
@@ -166,6 +192,27 @@
       {
         "Name": "id",
         "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "FlowDeskAPI.Controllers.Projects.UpdateProjectController",
+    "Method": "Update",
+    "RelativePath": "api/UpdateProject/{slug}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "Application.Flowdesk.DTO.Projects.UpdateProjectRequest",
+        "IsRequired": true
+      },
+      {
+        "Name": "slug",
+        "Type": "System.String",
         "IsRequired": true
       }
     ],

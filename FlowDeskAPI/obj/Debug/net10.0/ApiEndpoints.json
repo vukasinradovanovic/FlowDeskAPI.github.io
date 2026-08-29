@@ -74,6 +74,22 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "FlowDeskAPI.Controllers.Projects.DeleteProjectController",
+    "Method": "Delete",
+    "RelativePath": "api/DeleteProject/{slug}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "slug",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "FlowDeskAPI.Controllers.Teams.DeleteTeamController",
     "Method": "Delete",
     "RelativePath": "api/DeleteTeam/{id}",

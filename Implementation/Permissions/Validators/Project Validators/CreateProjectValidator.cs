@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Implementation.Permissions.Validators.Project_Validators
 {
-    internal class CreateProjectValidator : CommonValidator<CreateProjectRequest>
+    public class CreateProjectValidator : CommonValidator<CreateProjectRequest>
     {
         private readonly IApplicationUser _currentUser;
         public CreateProjectValidator(FlowDbContext context, IApplicationUser currentUser) : base(context)

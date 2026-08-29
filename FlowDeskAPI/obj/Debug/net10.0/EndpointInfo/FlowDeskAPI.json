@@ -211,6 +211,28 @@
         }
       }
     },
+    "/api/DeleteProject/{slug}": {
+      "delete": {
+        "tags": [
+          "DeleteProject"
+        ],
+        "parameters": [
+          {
+            "name": "slug",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/api/GetAllProjects": {
       "get": {
         "tags": [
@@ -585,6 +607,9 @@
     },
     {
       "name": "CreateProject"
+    },
+    {
+      "name": "DeleteProject"
     },
     {
       "name": "GetAllProjects"

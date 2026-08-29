@@ -20,6 +20,8 @@ using Implementation.Permissions.Queries.Projects;
 using Implementation.Permissions.Queries.Statuses;
 using Implementation.Permissions.Queries.Teams;
 using Implementation.Permissions.Validators;
+using Implementation.Permissions.Validators.Project_Validators;
+using Implementation.Permissions.Validators.Team_Validators;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
@@ -110,9 +112,16 @@ builder.Services.Configure<DefaultPermissionSettings>(builder.Configuration.GetS
 
 // 3. Validators
 builder.Services.AddValidatorsFromAssemblyContaining<RegisterUserValidator>();
+builder.Services.AddValidatorsFromAssemblyContaining<CreateProjectValidator>();
+builder.Services.AddValidatorsFromAssemblyContaining<UpdateProjectValidator>();
+builder.Services.AddValidatorsFromAssemblyContaining<DeleteProjectValidator>();
+builder.Services.AddValidatorsFromAssemblyContaining<CreateTeamValidator>();
+builder.Services.AddValidatorsFromAssemblyContaining<UpdateTeamValidator>();
+builder.Services.AddValidatorsFromAssemblyContaining<DeleteTeamValidator>();
 
 // 4. Commands & Permissions
 builder.Services.AddTransient<IRegisterUserCommand, EfRegisterCommand>();
+
 //          Team Section
 builder.Services.AddTransient<IGetUsersTeamQuery, EfGetUserTeamsQuery>();
 builder.Services.AddTransient<IGetTeamByIdQuery, EfGetTeamByIdQuery>();
@@ -126,7 +135,7 @@ builder.Services.AddTransient<IGetProjectsQuery, EfGetAllUserProjectsQuery>();
 builder.Services.AddTransient<IGetProjectBySlugQuery, EfGetProjectBySlugQuery>();
 builder.Services.AddTransient<ICreateProjectCommand, EfCreateProjectCommand>();
 builder.Services.AddTransient<IUpdateProjectCommand, EfUpdateProjectCommand>();
-//builder.Services.AddTransient<IDeleteProjectCommand, EfDeleteProjectCommand>();
+builder.Services.AddTransient<IDeleteProjectCommand, EfDeleteProjectCommand>();
 
 //         Status Section
 builder.Services.AddTransient<IGetAllStatusesQuery, EfGetAllStatusesQuery>();

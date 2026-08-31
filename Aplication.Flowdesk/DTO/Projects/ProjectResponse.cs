@@ -1,4 +1,5 @@
 ﻿using Application.Flowdesk.DTO.Statuses;
+using Application.Flowdesk.DTO.TeamDto;
 
 namespace Application.Flowdesk.DTO.Projects
 {
@@ -12,5 +13,6 @@ namespace Application.Flowdesk.DTO.Projects
         public DateTime DueDate { get; set; }
         public DateTime CreatedAt { get; set; }
         public StatusResponse Status { get; set; }
+        public IEnumerable<TeamResponse> Teams { get; set; }
     }
 }

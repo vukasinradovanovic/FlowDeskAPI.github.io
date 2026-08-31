@@ -1,1 +1,65 @@
+## ==========================================
+## 1. Visual Studio & User-Specific Files
+## ==========================================
 .vs/
+*.user
+*.userosscache
+*.sln.docstates
+*.suo
+*.userprefs
+
+## ==========================================
+## 2. Build Output & Compiled Files
+## ==========================================
+[Bb]in/
+[Oo]bj/
+[Dd]ebug/
+[Rr]elease/
+x64/
+x86/
+[Aa]rm/
+[Aa]rm64/
+build/
+*.dll
+*.exe
+*.pdb
+*.cache
+*.force
+
+## ==========================================
+## 3. Environment & Sensitive Config Files
+## ==========================================
+# Application setting overrides containing secrets or local DB connection strings
+appsettings.Development.json
+appsettings.Local.json
+appsettings.Production.json
+appsettings.Staging.json
+*.env
+*.env.*
+*.secrets.json
+
+## ==========================================
+## 4. JetBrains Rider & VS Code
+## ==========================================
+.idea/
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+*.DotSettings.user
+
+## ==========================================
+## 5. OS Generated Files
+## ==========================================
+.DS_Store
+Thumbs.db
+ehthumbs.db
+desktop.ini
+
+## ==========================================
+## 6. Package & Tool Caches
+## ==========================================
+*.nupkg
+*.snupkg
+**/node_modules/
+.paket/

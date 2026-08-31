@@ -1,6 +1,8 @@
 ﻿using Application;
+using Application.Flowdesk.DTO.Pagination;
 using Application.Flowdesk.DTO.Projects;
 using Application.Flowdesk.DTO.Statuses;
+using Application.Flowdesk.Extentions;
 using Application.Flowdesk.Queries.Projects;
 using Application.Flowdesk.Settings;
 using DataAccess.FlowDesk;
@@ -22,27 +24,27 @@ namespace Implementation.Permissions.Queries.Projects
         public int Id => _defaultPermissionSettings.ViewUserProjectsId;
         public string Name => _defaultPermissionSettings.ViewUserProjectsName;
 
-        public IEnumerable<ProjectResponse> Execute(object? request)
+        public PagedResponse<ProjectResponse> Execute(PagedRequest? request)
         {
-            return _context.Projects
-                .Where(p => p.ProjectTeams.Any(pt => pt.Team.Members.Any(m => m.UserId == _user.Id)))
-                .Select(p => new ProjectResponse
+
+            var query = _context.Projects.Where(p => p.ProjectTeams.Any(pt => pt.Team.Members.Any(m => m.UserId == _user.Id)));
+
+            return query.Paginate(request, p => new ProjectResponse
+            {
+                Id = p.Id,
+                Name = p.Name,
+                Slug = p.Slug,
+                Icon = p.Icon,
+                Theme = p.Theme,
+                DueDate = p.DueDate,
+                CreatedAt = p.CreatedAt,
+                Status = p.Status == null ? null : new StatusResponse
                 {
-                    Id = p.Id,
-                    Name = p.Name,
-                    Slug = p.Slug,
-                    Icon = p.Icon,
-                    Theme = p.Theme,
-                    DueDate = p.DueDate,
-                    CreatedAt = p.CreatedAt,
-                    Status = new StatusResponse
-                    {
-                        Id = p.Status.Id,
-                        Name = p.Status.Name,
-                        Theme = p.Status.StatusTheme
-                    }
-                })
-                .ToList();
+                    Id = p.Status.Id,
+                    Name = p.Status.Name,
+                    Theme = p.Status.StatusTheme,
+                }
+            });
         }
     }
 }

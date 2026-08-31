@@ -1,5 +1,7 @@
-﻿using Application.Flowdesk.DTO.Projects;
+﻿using Application.Flowdesk.DTO.Pagination;
+using Application.Flowdesk.DTO.Projects;
 using Application.Flowdesk.DTO.Statuses;
+using Application.Flowdesk.Extentions;
 using Application.Flowdesk.Queries.Projects;
 using Application.Flowdesk.Settings;
 using DataAccess.FlowDesk;
@@ -17,9 +19,11 @@ namespace Implementation.Permissions.Queries.Projects
 
         public string Name => _defaultPermissionSettings.ViewProjectsName;
 
-        public IEnumerable<ProjectResponse> Execute(object? request)
+        public PagedResponse<ProjectResponse> Execute(PagedRequest? request)
         {
-            return _context.Projects.Select(p => new ProjectResponse
+            var query = _context.Projects.AsQueryable();
+
+            return query.Paginate(request, p => new ProjectResponse
             {
                 Id = p.Id,
                 Name = p.Name,
@@ -28,13 +32,13 @@ namespace Implementation.Permissions.Queries.Projects
                 Theme = p.Theme,
                 DueDate = p.DueDate,
                 CreatedAt = p.CreatedAt,
-                Status = new StatusResponse
+                Status = p.Status == null ? null : new StatusResponse
                 {
                     Id = p.Status.Id,
                     Name = p.Status.Name,
                     Theme = p.Status.StatusTheme,
                 }
-            }).ToList();
+            });
         }
     }
 }

@@ -7,6 +7,8 @@ using Application.Flowdesk.Extentions;
 using Application.Flowdesk.Queries.Teams;
 using Application.Flowdesk.Settings;
 using DataAccess.FlowDesk;
+using FlowDeskAPI.DTO.Autentification;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 
 namespace Implementation.Permissions.Queries.Teams
@@ -25,13 +27,27 @@ namespace Implementation.Permissions.Queries.Teams
 
         public PagedResponse<TeamResponse> Execute(PagedRequest? request)
         {
-            var query = _context.Teams.Where(t => t.Members.Any(m => m.UserId == _currentUser.Id)).AsQueryable();
-
-            return query.Paginate(request, t => new TeamResponse
+            return _context.Teams
+        .AsNoTracking()
+        .Where(t => t.Members.Any(m => m.UserId == _currentUser.Id))
+        .OrderBy(t => t.Id)
+        .Paginate(request, t => new TeamResponse
+        {
+            Id = t.Id,
+            Name = t.Name,
+            Members = t.Members.Select(m => new UserResponse
             {
-                Id = t.Id,
-                Name = t.Name,
-                Projects = t.ProjectTeams.Select(tp => new ProjectResponse
+                Id = m.User.Id,
+                Email = m.User.Email,
+                FirstName = m.User.FirstName,
+                LastName = m.User.LastName,
+                AvatarColor = m.User.AvatarColor
+
+            }).ToList(),
+
+            Projects = t.ProjectTeams
+                .Where(tp => tp.Project != null)
+                .Select(tp => new ProjectResponse
                 {
                     Id = tp.Project.Id,
                     Name = tp.Project.Name,
@@ -40,15 +56,21 @@ namespace Implementation.Permissions.Queries.Teams
                     Theme = tp.Project.Theme,
                     DueDate = tp.Project.DueDate,
                     CreatedAt = tp.Project.CreatedAt,
-                    Status = new StatusResponse
+                    Status = tp.Project.Status == null ? null : new StatusResponse
                     {
                         Id = tp.Project.Status.Id,
                         Name = tp.Project.Status.Name,
                         Theme = tp.Project.Status.StatusTheme
-                    }
-
+                    },
+                    Teams = tp.Project.ProjectTeams
+                        .Where(pt => pt.Team != null)
+                        .Select(pt => new TeamResponse
+                        {
+                            Id = pt.Team.Id,
+                            Name = pt.Team.Name
+                        })
                 })
-            });
+        });
         }
     }
 }

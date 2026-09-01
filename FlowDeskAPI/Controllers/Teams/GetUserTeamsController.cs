@@ -1,4 +1,5 @@
-﻿using Application.Flowdesk.Queries.Teams;
+﻿using Application.Flowdesk.DTO.Pagination;
+using Application.Flowdesk.Queries.Teams;
 using Implementation.Permissions;
 using Microsoft.AspNetCore.Mvc;
 
@@ -10,9 +11,10 @@ namespace FlowDeskAPI.Controllers.Teams
     {
         [HttpGet]
         public ActionResult Index([FromServices] IGetUsersTeamQuery query,
-                                  [FromServices] PermissionHandler handler)
+                                  [FromServices] PermissionHandler handler,
+                                  [FromQuery] PagedRequest request)
         {
-            var teams = handler.ExecuteQuery(query, null);
+            var teams = handler.ExecuteQuery(query, request);
             return Ok(teams);
         }
     }

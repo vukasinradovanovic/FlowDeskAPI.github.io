@@ -153,6 +153,8 @@ if (app.RunCommandLineSeeders(args))
 // ==========================================
 // 6. HTTP Request Pipeline Configuration
 // ==========================================
+app.UseCors("AllowAngularDev");
+
 if (app.Environment.IsLocal())
 {
     Console.WriteLine("Lokalno okruzenje.");
@@ -162,7 +164,6 @@ else
     Console.WriteLine(app.Environment.EnvironmentName);
 }
 
-app.UseCors("AllowAngularDev");
 app.UseHttpsRedirection();
 
 app.UseMiddleware<GlobalExceptionHandlingMiddleware>();

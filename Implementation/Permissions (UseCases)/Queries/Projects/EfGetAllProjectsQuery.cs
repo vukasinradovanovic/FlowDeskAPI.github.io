@@ -26,6 +26,7 @@ namespace Implementation.Permissions.Queries.Projects
             return _context.Projects
                 .IgnoreQueryFilters()
                 .AsNoTracking()
+                .OrderByDescending(p => p.CreatedAt)
                 .Paginate(request, p => new ProjectResponse
                 {
                     Id = p.Id,
@@ -47,7 +48,7 @@ namespace Implementation.Permissions.Queries.Projects
                     {
                         Id = t.Team.Id,
                         Name = t.Team.Name,
-                    }).ToList()
+                    })
                 });
         }
     }

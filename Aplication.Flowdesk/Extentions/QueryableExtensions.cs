@@ -13,7 +13,7 @@ namespace Application.Flowdesk.Extentions
         {
             search ??= new PagedRequest();
 
-            int currentPage = (search.Page.HasValue && search.Page.Value > 0) ? search.Page.Value : 1;
+            int currentPage = (search.currentPage.HasValue && search.currentPage.Value > 0) ? search.currentPage.Value : 1;
             int perPage = (search.PerPage.HasValue && search.PerPage.Value > 0) ? search.PerPage.Value : 10;
 
             var totalCount = query.Count();

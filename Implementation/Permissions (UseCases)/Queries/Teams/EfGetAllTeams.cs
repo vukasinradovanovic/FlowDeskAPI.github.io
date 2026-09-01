@@ -37,7 +37,7 @@ namespace Implementation.Permissions.Queries.Teams
                     FirstName = m.User.FirstName,
                     LastName = m.User.LastName,
                     AvatarColor = m.User.AvatarColor
-                }).ToList(),
+                }),
                 Projects = t.ProjectTeams.Select(tp => new ProjectResponse
                 {
                     Id = tp.Project.Id,
@@ -53,7 +53,7 @@ namespace Implementation.Permissions.Queries.Teams
                         Name = tp.Project.Status.Name,
                         Theme = tp.Project.Status.StatusTheme
                     }
-                }).ToList()
+                })
             });
         }
     }

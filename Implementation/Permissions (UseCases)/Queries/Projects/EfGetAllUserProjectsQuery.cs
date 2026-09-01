@@ -2,15 +2,17 @@
 using Application.Flowdesk.DTO.Pagination;
 using Application.Flowdesk.DTO.Projects;
 using Application.Flowdesk.DTO.Statuses;
+using Application.Flowdesk.DTO.TeamDto;
 using Application.Flowdesk.Extentions;
 using Application.Flowdesk.Queries.Projects;
 using Application.Flowdesk.Settings;
 using DataAccess.FlowDesk;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 
 namespace Implementation.Permissions.Queries.Projects
 {
-    public class EfGetAllUserProjectsQuery : EfPermissions, IGetProjectsQuery
+    public class EfGetAllUserProjectsQuery : EfPermissions, IGetUserProjectsQuery
     {
         private readonly IApplicationUser _user;
         public EfGetAllUserProjectsQuery(FlowDbContext context,
@@ -27,24 +29,33 @@ namespace Implementation.Permissions.Queries.Projects
         public PagedResponse<ProjectResponse> Execute(PagedRequest? request)
         {
 
-            var query = _context.Projects.Where(p => p.ProjectTeams.Any(pt => pt.Team.Members.Any(m => m.UserId == _user.Id)));
-
-            return query.Paginate(request, p => new ProjectResponse
-            {
-                Id = p.Id,
-                Name = p.Name,
-                Slug = p.Slug,
-                Icon = p.Icon,
-                Theme = p.Theme,
-                DueDate = p.DueDate,
-                CreatedAt = p.CreatedAt,
-                Status = p.Status == null ? null : new StatusResponse
+            return _context.Projects
+                .AsNoTracking()
+                .Where(p => p.ProjectTeams.Any(pt => pt.Team.Members.Any(m => m.UserId == _user.Id)))
+                .OrderByDescending(p => p.CreatedAt)
+                .Paginate(request, p => new ProjectResponse
                 {
-                    Id = p.Status.Id,
-                    Name = p.Status.Name,
-                    Theme = p.Status.StatusTheme,
-                }
-            });
+                    Id = p.Id,
+                    Name = p.Name,
+                    Slug = p.Slug,
+                    Icon = p.Icon,
+                    Theme = p.Theme,
+                    DueDate = p.DueDate,
+                    CreatedAt = p.CreatedAt,
+                    Status = p.Status == null ? null : new StatusResponse
+                    {
+                        Id = p.Status.Id,
+                        Name = p.Status.Name,
+                        Theme = p.Status.StatusTheme,
+                    },
+                    Teams = p.ProjectTeams
+                        .Where(pt => pt.Team != null)
+                        .Select(pt => new TeamResponse
+                        {
+                            Id = pt.Team.Id,
+                            Name = pt.Team.Name
+                        })
+                });
         }
     }
 }

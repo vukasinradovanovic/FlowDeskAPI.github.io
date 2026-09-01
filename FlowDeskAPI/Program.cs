@@ -131,7 +131,7 @@ builder.Services.AddTransient<IUpdateTeamCommand, EfUpdateTeamCommand>();
 builder.Services.AddTransient<IDeleteTeamCommand, EfDeleteTeamCommand>();
 
 //         Project Section
-builder.Services.AddTransient<IGetProjectsQuery, EfGetAllUserProjectsQuery>();
+builder.Services.AddTransient<IGetUserProjectsQuery, EfGetAllUserProjectsQuery>();
 builder.Services.AddTransient<IGetProjectsQuery, EfGetAllProjectsQuery>();
 builder.Services.AddTransient<IGetProjectBySlugQuery, EfGetProjectBySlugQuery>();
 builder.Services.AddTransient<ICreateProjectCommand, EfCreateProjectCommand>();

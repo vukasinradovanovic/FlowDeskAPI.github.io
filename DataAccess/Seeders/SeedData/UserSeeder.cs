@@ -15,7 +15,10 @@ namespace DataAccess.FlowDesk.Seeders.SeedData
                     LastName = "Jenkins",
                     Email = "sarah@flowdesk.com",
                     Password = BCrypt.Net.BCrypt.HashPassword("user123"),
-                    AvatarColor = "emerald"
+                    AvatarColor = "emerald",
+                    ActivatedAt = DateTime.Now,
+                    ActivationCode = "ABC123",
+                    RegisteredAt = DateTime.Now
                 },
                 new User
                 {
@@ -24,7 +27,10 @@ namespace DataAccess.FlowDesk.Seeders.SeedData
                     LastName = "Doe",
                     Email = "john@flowdesk.com",
                     Password = BCrypt.Net.BCrypt.HashPassword("user123"),
-                    AvatarColor = "indigo"
+                    AvatarColor = "indigo",
+                    ActivatedAt = DateTime.Now,
+                    ActivationCode = "ABC123",
+                    RegisteredAt = DateTime.Now
                 },
                 new User
                 {
@@ -33,7 +39,10 @@ namespace DataAccess.FlowDesk.Seeders.SeedData
                     LastName = "Smith",
                     Email = "emily@flowdesk.com",
                     Password = BCrypt.Net.BCrypt.HashPassword("user123"),
-                    AvatarColor = "amber"
+                    AvatarColor = "amber",
+                    ActivatedAt = DateTime.Now,
+                    ActivationCode = "ABC123",
+                    RegisteredAt = DateTime.Now
                 },
                 new User
                 {
@@ -42,7 +51,10 @@ namespace DataAccess.FlowDesk.Seeders.SeedData
                     LastName = "Brown",
                     Email = "michael@flowdesk.com",
                     Password = BCrypt.Net.BCrypt.HashPassword("user123"),
-                    AvatarColor = "rose"
+                    AvatarColor = "rose",
+                    ActivatedAt = DateTime.Now,
+                    ActivationCode = "ABC123",
+                    RegisteredAt = DateTime.Now
                 },
                 new User
                 {
@@ -51,7 +63,10 @@ namespace DataAccess.FlowDesk.Seeders.SeedData
                     LastName = "Davis",
                     Email = "jessica@flowdesk.com",
                     Password = BCrypt.Net.BCrypt.HashPassword("user123"),
-                    AvatarColor = "emerald"
+                    AvatarColor = "emerald",
+                    ActivatedAt = DateTime.Now,
+                    ActivationCode = "ABC123",
+                    RegisteredAt = DateTime.Now
                 }
             };
         }

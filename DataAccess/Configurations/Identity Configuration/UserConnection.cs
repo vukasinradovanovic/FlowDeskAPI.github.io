@@ -29,11 +29,18 @@ namespace DataAccess.FlowDesk.Connections
 
             builder.Property(x => x.Password)
                    .IsRequired()
-                   .HasMaxLength(128); // Standard size for hashed/salted password strings
+                   .HasMaxLength(128);
 
             builder.Property(x => x.AvatarColor)
-                   .IsRequired(false) // Nullable if they don't pick a color immediately
-                   .HasMaxLength(7);  // Stores hex codes like "#FF5733"
+                   .IsRequired(false)
+                   .HasMaxLength(20);
+
+            builder.Property(x => x.ActivationCode)
+                .HasMaxLength(60);
+            builder.HasIndex(x => x.ActivationCode);
+
+            builder.Property(x => x.RegisteredAt)
+                .HasDefaultValueSql("GETDATE()");
 
             builder.HasMany(x => x.UserRoles)
                 .WithOne(ur => ur.User)

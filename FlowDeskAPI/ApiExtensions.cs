@@ -39,13 +39,12 @@ namespace FlowWith.API
 
         public static void SetupApplication(this IServiceCollection services, AppSettings settings, IConfiguration configuration)
         {
+            // 1. Handlers & Core Infrastructure
             services.AddSingleton(settings);
             services.AddTransient(x => new FlowDbContext(settings.ConnString));
             services.AddTransient<IExceptionLogger, SentryExceptionLogger>();
             services.AddTransient<IApplicationUser, UnauthorizedUser>();
             services.AddTransient<JwtHandler>();
-
-            // 1. Handlers & Core Infrastructure
             services.AddScoped<PermissionHandler>();
 
             // 2. Options Settings
@@ -84,12 +83,15 @@ namespace FlowWith.API
             //         Status Section
             services.AddTransient<IGetAllStatusesQuery, EfGetAllStatusesQuery>();
 
+            //         Email Section
             services.AddTransient<EmailTemplateComposer>();
             services.AddSingleton<IEmailSender, SmtpEmailSender>(x =>
             {
-                return new SmtpEmailSender(settings.EmailSettings.FromEmail, settings.EmailSettings.AppPassword);
+                return new SmtpEmailSender(settings.EmailSettings.FromEmail, settings.EmailSettings.AppPassword, settings.EmailSettings.SmtpHost, settings.EmailSettings.SmtpPort, settings.EmailSettings.Username);
             });
             services.AddTransient<IActivateAccountCommand, EfActivateAccountCommand>();
+
+
 
             services.AddTransient<IApplicationUser>(container =>
             {

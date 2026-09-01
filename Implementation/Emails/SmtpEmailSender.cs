@@ -9,11 +9,17 @@ namespace Implementation.Emails
     {
         private string _fromEmail;
         private string _appPassword;
+        private string _smtpHost;
+        private int _smtpPort;
+        private string _username;
 
-        public SmtpEmailSender(string fromEmail, string appPassword)
+        public SmtpEmailSender(string fromEmail, string appPassword, string smtpHost, int smtpPort, string username)
         {
-            this._fromEmail = fromEmail;
-            this._appPassword = appPassword;
+            _fromEmail = fromEmail;
+            _appPassword = appPassword;
+            _smtpHost = smtpHost;
+            _smtpPort = smtpPort;
+            _username = username;
         }
 
         public void SendEmail(string recipient, string subject, string htmlContent)
@@ -28,12 +34,12 @@ namespace Implementation.Emails
 
             message.To.Add(recipient);
 
-            using SmtpClient client = new SmtpClient("smtp.gmail.com", 587)
+            using SmtpClient client = new SmtpClient(_smtpHost, _smtpPort)
             {
-                EnableSsl = true,
-                DeliveryMethod = SmtpDeliveryMethod.Network,
                 UseDefaultCredentials = false,
-                Credentials = new NetworkCredential(_fromEmail, _appPassword)
+                Credentials = new NetworkCredential(_username, _appPassword),
+                EnableSsl = true,
+                DeliveryMethod = SmtpDeliveryMethod.Network
             };
 
             client.Send(message);

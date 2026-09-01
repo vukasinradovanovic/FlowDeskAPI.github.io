@@ -8,13 +8,16 @@ namespace Implementation.Emails
         public string GetTemplateContent(EmailTemplate template, object model)
         {
             var dir = AppDomain.CurrentDomain.BaseDirectory;
-            var filePath = Path.Combine(dir, "Emails", "Templates");
-            var templateFile = template.ToString().ToLower() + ".html";
+            var templateFile = $"{template.ToString().ToLower()}.html";
 
-            filePath = Path.Combine(filePath, templateFile);
+            var filePath = Path.Combine(dir, "Emails", "Templates", templateFile);
+
+            if (!File.Exists(filePath))
+            {
+                throw new FileNotFoundException($"Email template file not found at: {filePath}");
+            }
 
             var html = File.ReadAllText(filePath);
-
             var compiledTemplate = Handlebars.Compile(html);
 
             return compiledTemplate(model);

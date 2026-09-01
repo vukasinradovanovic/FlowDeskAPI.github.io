@@ -1,4 +1,5 @@
-﻿using Application.Flowdesk.Queries.Projects;
+﻿using Application.Flowdesk.DTO.Pagination;
+using Application.Flowdesk.Queries.Projects;
 using Implementation.Permissions;
 using Microsoft.AspNetCore.Mvc;
 
@@ -10,9 +11,10 @@ namespace FlowDeskAPI.Controllers.Projects
     {
         [HttpGet]
         public IActionResult Index([FromServices] IGetProjectsQuery query,
-                                   [FromServices] PermissionHandler handler)
+                                   [FromServices] PermissionHandler handler,
+                                   [FromQuery] PagedRequest request)
         {
-            var projects = handler.ExecuteQuery(query, null);
+            var projects = handler.ExecuteQuery(query, request);
             return Ok(projects);
         }
     }

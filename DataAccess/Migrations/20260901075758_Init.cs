@@ -92,7 +92,10 @@ namespace DataAccess.FlowDesk.Migrations
                     LastName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     Email = table.Column<string>(type: "nvarchar(120)", maxLength: 120, nullable: false),
                     Password = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: false),
-                    AvatarColor = table.Column<string>(type: "nvarchar(7)", maxLength: 7, nullable: true)
+                    AvatarColor = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: true),
+                    ActivationCode = table.Column<string>(type: "nvarchar(60)", maxLength: 60, nullable: false),
+                    RegisteredAt = table.Column<DateTime>(type: "datetime2", nullable: true, defaultValueSql: "GETDATE()"),
+                    ActivatedAt = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -380,6 +383,11 @@ namespace DataAccess.FlowDesk.Migrations
                 table: "UserRoles",
                 columns: new[] { "UserId", "RoleId" },
                 unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Users_ActivationCode",
+                table: "Users",
+                column: "ActivationCode");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Users_Username",

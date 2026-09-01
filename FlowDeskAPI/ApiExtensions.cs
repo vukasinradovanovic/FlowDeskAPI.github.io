@@ -1,10 +1,30 @@
 ﻿using Application;
+using Application.Flowdesk.Commands.Auth;
+using Application.Flowdesk.Commands.Projects;
+using Application.Flowdesk.Commands.Teams;
 using Application.Flowdesk.DTO.Auth;
+using Application.Flowdesk.Interfaces;
+using Application.Flowdesk.Queries.Projects;
+using Application.Flowdesk.Queries.Statuses;
+using Application.Flowdesk.Queries.Teams;
+using Application.Flowdesk.Settings;
 using DataAccess.FlowDesk;
 using FlowDesk.API.ExceptionLogging;
 using FlowDesk.API.JWT;
 using FlowDeskAPI;
 using Implementation;
+using Implementation.Emails;
+using Implementation.Permissions;
+using Implementation.Permissions.Commands.Auth;
+using Implementation.Permissions.Commands.Projects;
+using Implementation.Permissions.Commands.Teams;
+using Implementation.Permissions.Queries.Projects;
+using Implementation.Permissions.Queries.Statuses;
+using Implementation.Permissions.Queries.Teams;
+using Implementation.Permissions.Validators;
+using Implementation.Permissions.Validators.Project_Validators;
+using Implementation.Permissions.Validators.Team_Validators;
+using Implementation.Permissions__UseCases_.Commands.Auth;
 using Newtonsoft.Json;
 using System.IdentityModel.Tokens.Jwt;
 
@@ -17,17 +37,65 @@ namespace FlowWith.API
             return env.EnvironmentName == "Development";
         }
 
-        public static void SetupApplication(this IServiceCollection services, AppSettings settings)
+        public static void SetupApplication(this IServiceCollection services, AppSettings settings, IConfiguration configuration)
         {
+            // 1. Handlers & Core Infrastructure
             services.AddSingleton(settings);
             services.AddTransient(x => new FlowDbContext(settings.ConnString));
             services.AddTransient<IExceptionLogger, SentryExceptionLogger>();
             services.AddTransient<IApplicationUser, UnauthorizedUser>();
             services.AddTransient<JwtHandler>();
+            services.AddScoped<PermissionHandler>();
+
+            // 2. Options Settings
+            services.Configure<RoleSettings>(configuration.GetSection("RoleSettings"));
+            services.Configure<StatusSettings>(configuration.GetSection("StatusSettings"));
+            services.Configure<DefaultPermissionSettings>(configuration.GetSection("DefaultPermissionSettings"));
+
+            // 3. Validators
+            services.AddTransient<RegisterUserValidator>();
+            services.AddTransient<CreateProjectValidator>();
+            services.AddTransient<UpdateProjectValidator>();
+            services.AddTransient<DeleteProjectValidator>();
+            services.AddTransient<CreateTeamValidator>();
+            services.AddTransient<UpdateTeamValidator>();
+            services.AddTransient<DeleteTeamValidator>();
+
+            // 4. Commands & Permissions
+            services.AddTransient<IRegisterUserCommand, EfRegisterCommand>();
+
+            //          Team Section
+            services.AddTransient<IGetUsersTeamQuery, EfGetUserTeamsQuery>();
+            services.AddTransient<IGetTeamByIdQuery, EfGetTeamByIdQuery>();
+            services.AddTransient<IGetAllTeamsQuery, EfGetAllTeams>();
+            services.AddTransient<ICreateTeamCommand, EfCreateTeamCommand>();
+            services.AddTransient<IUpdateTeamCommand, EfUpdateTeamCommand>();
+            services.AddTransient<IDeleteTeamCommand, EfDeleteTeamCommand>();
+
+            //         Project Section
+            services.AddTransient<IGetUserProjectsQuery, EfGetAllUserProjectsQuery>();
+            services.AddTransient<IGetProjectsQuery, EfGetAllProjectsQuery>();
+            services.AddTransient<IGetProjectBySlugQuery, EfGetProjectBySlugQuery>();
+            services.AddTransient<ICreateProjectCommand, EfCreateProjectCommand>();
+            services.AddTransient<IUpdateProjectCommand, EfUpdateProjectCommand>();
+            services.AddTransient<IDeleteProjectCommand, EfDeleteProjectCommand>();
+
+            //         Status Section
+            services.AddTransient<IGetAllStatusesQuery, EfGetAllStatusesQuery>();
+
+            //         Email Section
+            services.AddTransient<EmailTemplateComposer>();
+            services.AddSingleton<IEmailSender, SmtpEmailSender>(x =>
+            {
+                return new SmtpEmailSender(settings.EmailSettings.FromEmail, settings.EmailSettings.AppPassword, settings.EmailSettings.SmtpHost, settings.EmailSettings.SmtpPort, settings.EmailSettings.Username);
+            });
+            services.AddTransient<IActivateAccountCommand, EfActivateAccountCommand>();
+
+
 
             services.AddTransient<IApplicationUser>(container =>
             {
-                var accessor = container.GetService<IHttpContextAccessor>(); //service locator
+                var accessor = container.GetService<IHttpContextAccessor>();
 
                 if (accessor.HttpContext == null)
                 {
@@ -39,7 +107,7 @@ namespace FlowWith.API
                     return new UnauthorizedUser();
                 }
 
-                var header = accessor.HttpContext.Request.Headers.Authorization; //Bearer token
+                var header = accessor.HttpContext.Request.Headers.Authorization;
                 var headerParts = header.ToString().Split(" ");
 
                 if (headerParts.Count() != 2 || headerParts[0] != "Bearer")

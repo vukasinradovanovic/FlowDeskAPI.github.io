@@ -11,7 +11,7 @@
 
     public class PagedRequest
     {
-        public int? Page { get; set; } = 1;
+        public int? currentPage { get; set; } = 1;
         public int? PerPage { get; set; } = 10;
     }
 }

@@ -9,6 +9,7 @@
   <ItemGroup>
     <PackageReference Include="FluentValidation" Version="12.1.1" />
     <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="12.1.1" />
+    <PackageReference Include="Handlebars.Net" Version="2.4.3" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="10.0.10" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.4" />
   </ItemGroup>
@@ -16,6 +17,15 @@
   <ItemGroup>
     <ProjectReference Include="..\Aplication.Flowdesk\Application.Flowdesk.csproj" />
     <ProjectReference Include="..\DataAccess\DataAccess.FlowDesk.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+	  <None Update="Emails\Templates\activation.html">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </None>
+	  <None Update="Emails\Templates\register.html">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </None>
   </ItemGroup>
 
 </Project>

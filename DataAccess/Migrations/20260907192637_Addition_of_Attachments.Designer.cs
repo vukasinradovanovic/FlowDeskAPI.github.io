@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DataAccess.FlowDesk.Migrations
 {
     [DbContext(typeof(FlowDbContext))]
-    [Migration("20260901075758_Init")]
-    partial class Init
+    [Migration("20260907192637_Addition_of_Attachments")]
+    partial class Addition_of_Attachments
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -327,6 +327,42 @@ namespace DataAccess.FlowDesk.Migrations
                     b.ToTable("Projects");
                 });
 
+            modelBuilder.Entity("Domain.ProjectTracking.ProjectAttachment", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("FilePath")
+                        .IsRequired()
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
+                    b.Property<long>("FileSize")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("OriginalFileName")
+                        .IsRequired()
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)");
+
+                    b.Property<int>("TaskId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("UploadedAt")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValueSql("GETUTCDATE()");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("TaskId");
+
+                    b.ToTable("ProjectAttachments");
+                });
+
             modelBuilder.Entity("Domain.ProjectTracking.ProjectTask", b =>
                 {
                     b.Property<int>("Id")
@@ -343,14 +379,11 @@ namespace DataAccess.FlowDesk.Migrations
 
                     b.Property<string>("Description")
                         .IsRequired()
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
+                        .HasMaxLength(250)
+                        .HasColumnType("nvarchar(250)");
 
                     b.Property<DateTime>("DueDate")
                         .HasColumnType("datetime2");
-
-                    b.Property<bool>("IsCompleted")
-                        .HasColumnType("bit");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -368,11 +401,17 @@ namespace DataAccess.FlowDesk.Migrations
                     b.Property<int>("StatusId")
                         .HasColumnType("int");
 
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
                     b.HasKey("Id");
 
                     b.HasIndex("AssignedUserId");
 
                     b.HasIndex("ProjectId");
+
+                    b.HasIndex("Slug")
+                        .IsUnique();
 
                     b.HasIndex("StatusId");
 
@@ -533,6 +572,17 @@ namespace DataAccess.FlowDesk.Migrations
                     b.Navigation("Status");
                 });
 
+            modelBuilder.Entity("Domain.ProjectTracking.ProjectAttachment", b =>
+                {
+                    b.HasOne("Domain.ProjectTracking.ProjectTask", "Task")
+                        .WithMany("Attachments")
+                        .HasForeignKey("TaskId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Task");
+                });
+
             modelBuilder.Entity("Domain.ProjectTracking.ProjectTask", b =>
                 {
                     b.HasOne("Domain.Identity.User", "AssignedUser")
@@ -613,6 +663,11 @@ namespace DataAccess.FlowDesk.Migrations
                     b.Navigation("ProjectTeams");
 
                     b.Navigation("Tasks");
+                });
+
+            modelBuilder.Entity("Domain.ProjectTracking.ProjectTask", b =>
+                {
+                    b.Navigation("Attachments");
                 });
 
             modelBuilder.Entity("Domain.ProjectTracking.Team", b =>

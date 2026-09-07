@@ -28,9 +28,15 @@ namespace Implementation.Permissions.Queries.Projects
 
         public PagedResponse<ProjectResponse> Execute(PagedRequest? request)
         {
+            var projects = _context.Projects.AsNoTracking();
 
-            return _context.Projects
-                .AsNoTracking()
+            if (!string.IsNullOrWhiteSpace(request?.Keyword))
+            {
+                var keyword = request.Keyword.Trim();
+                projects = projects.Where(p => p.Name.Contains(keyword));
+            }
+
+            return projects
                 .Where(p => p.ProjectTeams.Any(pt => pt.Team.Members.Any(m => m.UserId == _user.Id)))
                 .OrderByDescending(p => p.CreatedAt)
                 .Paginate(request, p => new ProjectResponse

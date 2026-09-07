@@ -34,6 +34,10 @@ namespace Implementation.Permissions.Validators.Team_Validators
                     return !nameTakenByAnotherTeam;
                 })
                 .WithMessage("Team name is already in use by another team.");
+
+            RuleFor(x => x.UserIds)
+                .NotNull().WithMessage("User IDs are required.")
+                .Must(userIds => userIds != null && userIds.Any()).WithMessage("At least one user ID is required.");
         }
     }
 }

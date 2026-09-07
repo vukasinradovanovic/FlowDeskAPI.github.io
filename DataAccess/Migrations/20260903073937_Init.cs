@@ -243,10 +243,10 @@ namespace DataAccess.FlowDesk.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     Slug = table.Column<string>(type: "nvarchar(70)", maxLength: 70, nullable: false),
-                    Description = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
-                    IsCompleted = table.Column<bool>(type: "bit", nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: false),
                     DueDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
                     ProjectId = table.Column<int>(type: "int", nullable: false),
                     AssignedUserId = table.Column<int>(type: "int", nullable: true),
                     StatusId = table.Column<int>(type: "int", nullable: false)
@@ -344,6 +344,12 @@ namespace DataAccess.FlowDesk.Migrations
                 name: "IX_Tasks_ProjectId",
                 table: "Tasks",
                 column: "ProjectId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Tasks_Slug",
+                table: "Tasks",
+                column: "Slug",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_Tasks_StatusId",

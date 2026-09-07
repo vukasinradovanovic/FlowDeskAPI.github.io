@@ -14,6 +14,7 @@ namespace DataAccess.FlowDesk.Seeders.SeedData
                 new Permission { Name = "Create Projects" },
                 new Permission { Name = "Edit Projects" },
                 new Permission { Name = "Delete Projects" },
+                new Permission { Name = "View User Tasks" },
                 new Permission { Name = "View Tasks" },
                 new Permission { Name = "Create Tasks" },
                 new Permission { Name = "Edit Tasks" },
@@ -23,6 +24,8 @@ namespace DataAccess.FlowDesk.Seeders.SeedData
                 new Permission { Name = "Delete Teams" },
                 new Permission { Name = "View Teams" },
                 new Permission { Name = "Can Assign Teams" },
+                new Permission { Name = "Can Assign Tasks" },
+                new Permission { Name = "Can View Use Case Logs" },
 
             };
         }

@@ -23,6 +23,9 @@ namespace DataAccess.FlowDesk.Seeders.SeedData
                 new UserRolePermission { UserRoleId = 1, PermissionId = 13 },
                 new UserRolePermission { UserRoleId = 1, PermissionId = 14 },
                 new UserRolePermission { UserRoleId = 1, PermissionId = 15 },
+                new UserRolePermission { UserRoleId = 1, PermissionId = 16 },
+                new UserRolePermission { UserRoleId = 1, PermissionId = 17 },
+                new UserRolePermission { UserRoleId = 1, PermissionId = 18 },
                 new UserRolePermission { UserRoleId = 2, PermissionId = 1 },
                 new UserRolePermission { UserRoleId = 2, PermissionId = 2 },
                 new UserRolePermission { UserRoleId = 3, PermissionId = 1 }

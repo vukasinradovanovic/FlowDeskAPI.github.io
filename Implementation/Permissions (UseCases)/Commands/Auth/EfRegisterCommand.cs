@@ -35,6 +35,7 @@ namespace Implementation.Permissions.Commands.Auth
 
         public void Execute(RegisterRequest request)
         {
+            var activationCode = Guid.NewGuid().ToString("N");
 
             User user = new User
             {
@@ -44,18 +45,22 @@ namespace Implementation.Permissions.Commands.Auth
                 Email = request.Email.Trim(),
                 Password = BCrypt.Net.BCrypt.HashPassword(request.Password),
                 AvatarColor = request.AvatarColor,
-                ActivationCode = Guid.NewGuid().ToString()
+                ActivationCode = activationCode,
+                RegisteredAt = DateTime.UtcNow
             };
+
             UserRole userRole = new UserRole
             {
                 User = user,
                 RoleId = _roleSettings.DefaultRoleId
             };
+
             UserRolePermission userRolePermissionGuest = new UserRolePermission
             {
                 UserRole = userRole,
                 PermissionId = _defaultPermissionSettings.GuestPermissionId
             };
+
             UserRolePermission userRolePermissionViewUserProjects = new UserRolePermission
             {
                 UserRole = userRole,
@@ -66,9 +71,17 @@ namespace Implementation.Permissions.Commands.Auth
             _context.UserRoles.Add(userRole);
             _context.UserRolePermissions.AddRange(userRolePermissionGuest, userRolePermissionViewUserProjects);
 
-            var html = _composer.GetTemplateContent(EmailTemplate.Register, request);
+            var templateModel = new
+            {
+                user.FirstName,
+                user.LastName,
+                user.Email,
+                ActivationUrl = $"https://localhost:7175/api/ActivateAccount/{activationCode}"
+            };
 
-            _emailSender.SendEmail(user.Email, "User registration", html);
+            var html = _composer.GetTemplateContent(EmailTemplate.Activation, templateModel);
+
+            _emailSender.SendEmail(user.Email, "Aktivacija Flowdesk naloga", html);
 
             _context.SaveChanges();
         }

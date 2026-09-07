@@ -22,6 +22,7 @@ namespace DataAccess.FlowDesk.Seeders
                 new AuthTokenSeeder(),
                 new ProjectTeamSeeder(),
                 new UserTeamSeeder(),
+                new TasksSeeder(),
             };
 
             foreach (var seeder in seederSequence)

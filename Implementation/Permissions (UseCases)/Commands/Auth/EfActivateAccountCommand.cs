@@ -5,7 +5,6 @@ using Application.Flowdesk.Settings;
 using DataAccess.FlowDesk;
 using Domain.Identity;
 using Implementation.Emails;
-using Implementation.Emails.Enums;
 using Implementation.Permissions;
 using Microsoft.Extensions.Options;
 
@@ -13,41 +12,40 @@ namespace Implementation.Permissions__UseCases_.Commands.Auth
 {
     public class EfActivateAccountCommand : EfPermissions, IActivateAccountCommand
     {
-        private IEmailSender _sender;
-        private EmailTemplateComposer _composer;
+        private readonly IEmailSender _sender;
+        private readonly EmailTemplateComposer _composer;
 
-        public EfActivateAccountCommand(FlowDbContext context, IOptions<DefaultPermissionSettings> defaultPermissionSettings) : base(context, defaultPermissionSettings.Value)
+        public EfActivateAccountCommand(FlowDbContext context,
+                                        IOptions<DefaultPermissionSettings> defaultPermissionSettings,
+                                        IEmailSender sender,
+                                        EmailTemplateComposer composer)
+            : base(context, defaultPermissionSettings.Value)
         {
+            _sender = sender;
+            _composer = composer;
         }
 
         public int Id => _defaultPermissionSettings.GuestPermissionId;
-
         public string Name => _defaultPermissionSettings.GuestPermissionName;
 
         public void Execute(string request)
         {
             var user = _context.Users.FirstOrDefault(x => x.ActivationCode == request);
 
-            if (user == null)
+            if (user == null || user.ActivatedAt.HasValue)
             {
                 throw new EntityNotFoundException(nameof(User));
             }
 
-            if (user.ActivatedAt.HasValue)
+            if (!user.RegisteredAt.HasValue || (DateTime.UtcNow - user.RegisteredAt.Value).TotalMinutes > 15)
             {
-                throw new EntityNotFoundException(nameof(User));
-            }
-
-            if ((DateTime.UtcNow - user.RegisteredAt.Value).TotalMinutes > 5)
-            {
-                throw new EntityNotFoundException(nameof(User));
+                throw new InvalidOperationException("Aktivacioni kod je istekao.");
             }
 
             user.ActivatedAt = DateTime.UtcNow;
-            user.ActivationCode = null;
+            user.ActivationCode = string.Empty;
 
-            var html = _composer.GetTemplateContent(EmailTemplate.Activation, user);
-            _sender.SendEmail(user.Email, "Account activated", html);
+            _context.SaveChanges();
         }
     }
 }

@@ -45,5 +45,7 @@
         public string CanAssignTasksName { get; set; }
         public int CanAssignTeamsId { get; set; }
         public string CanAssignTeamsName { get; set; }
+        public int CanViewUseCaseLogsId { get; set; }
+        public string CanViewUseCaseLogsName { get; set; }
     }
 }

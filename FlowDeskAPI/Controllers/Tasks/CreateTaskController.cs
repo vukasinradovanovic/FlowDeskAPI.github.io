@@ -10,9 +10,10 @@ namespace FlowDeskAPI.Controllers.Tasks
     public class CreateTaskController : ControllerBase
     {
         [HttpPost]
+        [Consumes("multipart/form-data")]
         public ActionResult Create([FromServices] ICreateTaskCommand command,
                                    [FromServices] PermissionHandler handler,
-                                   [FromBody] CreateTaskRequest request)
+                                   [FromForm] CreateTaskRequest request)
         {
             handler.ExecuteCommand(command, request);
             return Created();

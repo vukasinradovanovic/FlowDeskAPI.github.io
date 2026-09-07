@@ -1,4 +1,5 @@
-﻿using Application.Flowdesk.DTO.Statuses;
+﻿using Application.Flowdesk.DTO.Attachments;
+using Application.Flowdesk.DTO.Statuses;
 
 namespace Application.Flowdesk.DTO.Tasks
 {
@@ -14,5 +15,7 @@ namespace Application.Flowdesk.DTO.Tasks
         public int ProjectId { get; set; }
         public int AssignedUserId { get; set; }
         public StatusResponse Status { get; set; }
+        public IEnumerable<AttachmentResponse> Attachments { get; set; } = new List<AttachmentResponse>();
+
     }
 }

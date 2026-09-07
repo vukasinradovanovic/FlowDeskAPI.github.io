@@ -4,6 +4,7 @@ using DataAccess.FlowDesk;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DataAccess.FlowDesk.Migrations
 {
     [DbContext(typeof(FlowDbContext))]
-    partial class FlowDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260907192637_Addition_of_Attachments")]
+    partial class Addition_of_Attachments
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

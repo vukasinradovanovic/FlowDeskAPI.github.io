@@ -21,5 +21,7 @@ namespace Domain.ProjectTracking
         public int StatusId { get; set; }
         public virtual Status Status { get; set; }
 
+        public virtual ICollection<ProjectAttachment> Attachments { get; set; } = new List<ProjectAttachment>();
+
     }
 }

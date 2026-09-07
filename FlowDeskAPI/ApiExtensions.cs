@@ -5,6 +5,8 @@ using Application.Flowdesk.Commands.Tasks;
 using Application.Flowdesk.Commands.Teams;
 using Application.Flowdesk.DTO.Auth;
 using Application.Flowdesk.Interfaces;
+using Application.Flowdesk.Queries.Auth;
+using Application.Flowdesk.Queries.Permissions;
 using Application.Flowdesk.Queries.Projects;
 using Application.Flowdesk.Queries.Statuses;
 using Application.Flowdesk.Queries.Tasks;
@@ -28,6 +30,8 @@ using Implementation.Permissions.Validators.Project_Validators;
 using Implementation.Permissions.Validators.Team_Validators;
 using Implementation.Permissions__UseCases_.Commands.Auth;
 using Implementation.Permissions__UseCases_.Commands.Tasks;
+using Implementation.Permissions__UseCases_.Queries.Auth;
+using Implementation.Permissions__UseCases_.Queries.Permissions;
 using Implementation.Permissions__UseCases_.Queries.Statuses;
 using Implementation.Permissions__UseCases_.Queries.Tasks;
 using Implementation.Permissions__UseCases_.Validators.Taks_Validators;
@@ -70,6 +74,8 @@ namespace FlowWith.API
 
             // 4. Commands & Permissions
             services.AddTransient<IRegisterUserCommand, EfRegisterCommand>();
+            services.AddTransient<IGetAllUsersQuery, EfGetAllUsersQuery>();
+            services.AddTransient<IGetUseCaseLogQuery, EfGetUseCaseLogQuery>();
 
             //          Team Section
             services.AddTransient<IGetUsersTeamQuery, EfGetUserTeamsQuery>();

@@ -17,13 +17,13 @@ namespace Implementation.Permissions.Queries.Statuses
         public IEnumerable<StatusResponse> Execute(int? request)
         {
             return _context.Statuses
-                .Select(s => new StatusResponse
-                {
-                    Id = s.Id,
-                    Name = s.Name,
-                    Theme = s.StatusTheme
-                })
-                .ToList();
+                 .Select(s => new StatusResponse
+                 {
+                     Id = s.Id,
+                     Name = s.Name,
+                     Theme = s.StatusTheme
+                 })
+                 .ToList();
         }
     }
 }

@@ -20,8 +20,4 @@
     <ProjectReference Include="..\Implementation\Implementation.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Controllers\Admin\" />
-  </ItemGroup>
-
 </Project>

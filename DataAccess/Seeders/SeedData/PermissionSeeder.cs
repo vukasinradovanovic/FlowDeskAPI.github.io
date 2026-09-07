@@ -25,6 +25,7 @@ namespace DataAccess.FlowDesk.Seeders.SeedData
                 new Permission { Name = "View Teams" },
                 new Permission { Name = "Can Assign Teams" },
                 new Permission { Name = "Can Assign Tasks" },
+                new Permission { Name = "Can View Use Case Logs" },
 
             };
         }

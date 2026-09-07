@@ -1,4 +1,5 @@
-﻿using Application.Flowdesk.DTO.Statuses;
+﻿using Application.Flowdesk.DTO.Attachments;
+using Application.Flowdesk.DTO.Statuses;
 using Application.Flowdesk.DTO.Tasks;
 using Application.Flowdesk.Queries.Tasks;
 using Application.Flowdesk.Settings;
@@ -38,7 +39,15 @@ namespace Implementation.Permissions__UseCases_.Queries.Tasks
                         Id = t.Status.Id,
                         Name = t.Status.Name,
                         Theme = t.Status.StatusTheme
-                    }
+                    },
+                    Attachments = t.Attachments.Select(a => new AttachmentResponse
+                    {
+                        Id = a.Id,
+                        OriginalFileName = a.OriginalFileName,
+                        FilePath = a.FilePath,
+                        FileSize = a.FileSize,
+                        UploadedAt = a.UploadedAt
+                    })
                 })
                 .FirstOrDefault() ?? throw new ArgumentException("Project not found");
         }

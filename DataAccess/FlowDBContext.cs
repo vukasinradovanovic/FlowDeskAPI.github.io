@@ -69,6 +69,7 @@ namespace DataAccess.FlowDesk
         public DbSet<UserTeam> UserTeams { get; set; }
         public DbSet<AuthToken> AuthTokens { get; set; }
         public DbSet<UseCaseLog> UseCaseLogs { get; set; }
+        public DbSet<ProjectAttachment> ProjectAttachments { get; set; }
 
     }
 }

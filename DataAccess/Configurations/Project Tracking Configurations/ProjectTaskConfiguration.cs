@@ -29,6 +29,11 @@ namespace DataAccess.FlowDesk.Configurations.Project_Tracking_Configurations
                 .WithMany()
                 .HasForeignKey(x => x.StatusId)
                 .OnDelete(DeleteBehavior.Restrict);
+
+            builder.HasMany(t => t.Attachments)
+                .WithOne(a => a.Task)
+                .HasForeignKey(a => a.TaskId)
+                .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

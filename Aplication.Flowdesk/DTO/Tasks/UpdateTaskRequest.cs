@@ -11,6 +11,8 @@ namespace Application.Flowdesk.DTO.Tasks
         public DateTime DueDate { get; set; }
         public int ProjectId { get; set; }
         public int AssignedUserId { get; set; }
-        public IEnumerable<IFormFile>? Attachments { get; set; }
+        public IEnumerable<IFormFile>? NewAttachments { get; set; }
+        public IEnumerable<int>? AttachmentIdsToDelete { get; set; }
+        public int StatusId { get; set; }
     }
 }

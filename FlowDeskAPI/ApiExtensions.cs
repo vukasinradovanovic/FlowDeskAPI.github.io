@@ -1,6 +1,7 @@
 ﻿using Application;
 using Application.Flowdesk.Commands.Auth;
 using Application.Flowdesk.Commands.Projects;
+using Application.Flowdesk.Commands.Tasks;
 using Application.Flowdesk.Commands.Teams;
 using Application.Flowdesk.DTO.Auth;
 using Application.Flowdesk.Interfaces;
@@ -26,7 +27,10 @@ using Implementation.Permissions.Validators;
 using Implementation.Permissions.Validators.Project_Validators;
 using Implementation.Permissions.Validators.Team_Validators;
 using Implementation.Permissions__UseCases_.Commands.Auth;
+using Implementation.Permissions__UseCases_.Commands.Tasks;
+using Implementation.Permissions__UseCases_.Queries.Statuses;
 using Implementation.Permissions__UseCases_.Queries.Tasks;
+using Implementation.Permissions__UseCases_.Validators.Taks_Validators;
 using Newtonsoft.Json;
 using System.IdentityModel.Tokens.Jwt;
 
@@ -62,6 +66,7 @@ namespace FlowWith.API
             services.AddTransient<CreateTeamValidator>();
             services.AddTransient<UpdateTeamValidator>();
             services.AddTransient<DeleteTeamValidator>();
+            services.AddTransient<CreateTaskValidator>();
 
             // 4. Commands & Permissions
             services.AddTransient<IRegisterUserCommand, EfRegisterCommand>();
@@ -85,9 +90,12 @@ namespace FlowWith.API
             //         Task Section
             services.AddTransient<IGetAllTasksQuery, EfGetAllTasksQuery>();
             services.AddTransient<IGetUsersTasksQuery, EfGetUserTasks>();
+            services.AddTransient<IGetTaskBySlugQuery, EfGetTaskBySlugQuery>();
+            services.AddTransient<ICreateTaskCommand, EfCreateTaskCommand>();
 
             //         Status Section
             services.AddTransient<IGetAllStatusesQuery, EfGetAllStatusesQuery>();
+            services.AddTransient<IGetStatusByIdQuery, EfGetStatusByIdQuery>();
 
             //         Email Section
             services.AddTransient<EmailTemplateComposer>();

@@ -24,6 +24,13 @@ namespace Implementation.Permissions__UseCases_.Queries.Tasks
         public PagedResponse<TaskResponse> Execute(PagedRequest request)
         {
             var tasks = _context.Tasks.AsNoTracking();
+
+            if (!string.IsNullOrWhiteSpace(request?.Keyword))
+            {
+                var keyword = request.Keyword.Trim();
+                tasks = tasks.Where(t => t.Name.Contains(keyword));
+            }
+
             return tasks.Paginate(request, t => new TaskResponse
             {
                 Id = t.Id,

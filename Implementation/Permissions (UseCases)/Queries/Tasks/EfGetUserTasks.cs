@@ -20,9 +20,9 @@ namespace Implementation.Permissions__UseCases_.Queries.Tasks
             _currentUser = currentUser;
         }
 
-        public int Id => _defaultPermissionSettings.ViewUserTasksId;
+        public int Id => _defaultPermissionSettings.GuestPermissionId;
 
-        public string Name => _defaultPermissionSettings.ViewUserTasksName;
+        public string Name => _defaultPermissionSettings.GuestPermissionName;
 
         public PagedResponse<TaskResponse> Execute(PagedRequest? request)
         {

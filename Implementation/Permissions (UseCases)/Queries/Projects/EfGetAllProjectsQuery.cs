@@ -23,9 +23,15 @@ namespace Implementation.Permissions.Queries.Projects
 
         public PagedResponse<ProjectResponse> Execute(PagedRequest? request)
         {
-            return _context.Projects
-                .IgnoreQueryFilters()
-                .AsNoTracking()
+            var projects = _context.Projects.AsNoTracking();
+
+            if (!string.IsNullOrWhiteSpace(request?.Keyword))
+            {
+                var keyword = request.Keyword.Trim();
+                projects = projects.Where(p => p.Name.Contains(keyword));
+            }
+
+            return projects
                 .OrderByDescending(p => p.CreatedAt)
                 .Paginate(request, p => new ProjectResponse
                 {

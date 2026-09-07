@@ -26,35 +26,42 @@ namespace Implementation.Permissions.Queries.Teams
         {
             var teams = _context.Teams.AsNoTracking();
 
-            return teams.Paginate(request, t => new TeamResponse
+            if (!string.IsNullOrWhiteSpace(request?.Keyword))
             {
-                Id = t.Id,
-                Name = t.Name,
-                Members = t.Members.Select(m => new UserResponse
+                var keyword = request.Keyword.Trim();
+                teams = teams.Where(t => t.Name.Contains(keyword));
+            }
+
+            return teams
+                .Paginate(request, t => new TeamResponse
                 {
-                    Id = m.User.Id,
-                    Email = m.User.Email,
-                    FirstName = m.User.FirstName,
-                    LastName = m.User.LastName,
-                    AvatarColor = m.User.AvatarColor
-                }),
-                Projects = t.ProjectTeams.Select(tp => new ProjectResponse
-                {
-                    Id = tp.Project.Id,
-                    Name = tp.Project.Name,
-                    Slug = tp.Project.Slug,
-                    Icon = tp.Project.Icon,
-                    Theme = tp.Project.Theme,
-                    DueDate = tp.Project.DueDate,
-                    CreatedAt = tp.Project.CreatedAt,
-                    Status = tp.Project.Status == null ? null : new StatusResponse
+                    Id = t.Id,
+                    Name = t.Name,
+                    Members = t.Members.Select(m => new UserResponse
                     {
-                        Id = tp.Project.Status.Id,
-                        Name = tp.Project.Status.Name,
-                        Theme = tp.Project.Status.StatusTheme
-                    }
-                })
-            });
+                        Id = m.User.Id,
+                        Email = m.User.Email,
+                        FirstName = m.User.FirstName,
+                        LastName = m.User.LastName,
+                        AvatarColor = m.User.AvatarColor
+                    }),
+                    Projects = t.ProjectTeams.Select(tp => new ProjectResponse
+                    {
+                        Id = tp.Project.Id,
+                        Name = tp.Project.Name,
+                        Slug = tp.Project.Slug,
+                        Icon = tp.Project.Icon,
+                        Theme = tp.Project.Theme,
+                        DueDate = tp.Project.DueDate,
+                        CreatedAt = tp.Project.CreatedAt,
+                        Status = tp.Project.Status == null ? null : new StatusResponse
+                        {
+                            Id = tp.Project.Status.Id,
+                            Name = tp.Project.Status.Name,
+                            Theme = tp.Project.Status.StatusTheme
+                        }
+                    })
+                });
         }
     }
 }

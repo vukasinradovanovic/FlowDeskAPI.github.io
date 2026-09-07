@@ -98,6 +98,8 @@ namespace FlowWith.API
             services.AddTransient<IGetUsersTasksQuery, EfGetUserTasks>();
             services.AddTransient<IGetTaskBySlugQuery, EfGetTaskBySlugQuery>();
             services.AddTransient<ICreateTaskCommand, EfCreateTaskCommand>();
+            services.AddTransient<IUpdateTaskCommand, EfUpdateTaskCommand>();
+            services.AddTransient<IDeleteTaskCommand, EfDeleteTaskCommand>();
 
             //         Status Section
             services.AddTransient<IGetAllStatusesQuery, EfGetAllStatusesQuery>();

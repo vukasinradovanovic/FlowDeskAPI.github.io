@@ -14,7 +14,7 @@ namespace FlowDeskAPI.Controllers.Auth
                                      string activationCode)
         {
             handler.ExecuteCommand(command, activationCode);
-            return Redirect("http://localhost:5173/login?activated=true");
+            return Redirect($"http://localhost:5173/activate?token={activationCode}");
         }
     }
 }

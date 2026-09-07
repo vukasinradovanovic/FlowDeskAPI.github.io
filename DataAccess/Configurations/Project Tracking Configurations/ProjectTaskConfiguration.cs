@@ -1,9 +1,6 @@
 ﻿using Domain.ProjectTracking;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace DataAccess.FlowDesk.Configurations.Project_Tracking_Configurations
 {
@@ -13,7 +10,10 @@ namespace DataAccess.FlowDesk.Configurations.Project_Tracking_Configurations
         {
             builder.Property(x => x.Name).HasMaxLength(50).IsRequired();
             builder.Property(x => x.Slug).HasMaxLength(70).IsRequired();
-            builder.Property(x => x.Description).HasMaxLength(200).IsRequired();
+            builder.HasIndex(x => x.Slug).IsUnique();
+            builder.Property(x => x.Description).HasMaxLength(250).IsRequired();
+            builder.Property(x => x.CreatedAt).IsRequired();
+            builder.Property(x => x.UpdatedAt).IsRequired();
 
             builder.HasOne(x => x.Project)
                 .WithMany(p => p.Tasks)

@@ -340,14 +340,11 @@ namespace DataAccess.FlowDesk.Migrations
 
                     b.Property<string>("Description")
                         .IsRequired()
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
+                        .HasMaxLength(250)
+                        .HasColumnType("nvarchar(250)");
 
                     b.Property<DateTime>("DueDate")
                         .HasColumnType("datetime2");
-
-                    b.Property<bool>("IsCompleted")
-                        .HasColumnType("bit");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -365,11 +362,17 @@ namespace DataAccess.FlowDesk.Migrations
                     b.Property<int>("StatusId")
                         .HasColumnType("int");
 
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
                     b.HasKey("Id");
 
                     b.HasIndex("AssignedUserId");
 
                     b.HasIndex("ProjectId");
+
+                    b.HasIndex("Slug")
+                        .IsUnique();
 
                     b.HasIndex("StatusId");
 

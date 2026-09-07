@@ -42,6 +42,11 @@ namespace FlowDeskAPI.Controllers.Auth
                 return Unauthorized();
             }
 
+            if (user.ActivatedAt == null)
+            {
+                return Unauthorized();
+            }
+
             return Ok(_handler.MakeToken(user));
         }
 

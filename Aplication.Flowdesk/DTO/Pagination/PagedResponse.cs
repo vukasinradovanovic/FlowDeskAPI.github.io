@@ -11,6 +11,7 @@
 
     public class PagedRequest
     {
+        public string? Keyword { get; set; }
         public int? currentPage { get; set; } = 1;
         public int? PerPage { get; set; } = 10;
     }
